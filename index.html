@@ -2,1006 +2,213 @@
 <html lang="en">
 <head>
 <meta charset="UTF-8"/>
-<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
-<title>Power Pages – Quick Revision Guide</title>
+<meta name="viewport" content="width=device-width,initial-scale=1"/>
+<title>Dataverse & Model-Driven Apps — Interview Guide</title>
 <style>
-  :root {
-    --primary: #1a3c6e;
-    --accent: #0f6cbd;
-    --light: #e8f1fb;
-    --tip: #1e7e34;
-    --tip-bg: #d4edda;
-    --trap: #b21f1f;
-    --trap-bg: #fde8e8;
-    --warn: #856404;
-    --warn-bg: #fff3cd;
-    --example-bg: #f0f4ff;
-    --border: #d0dff0;
-    --text: #1a1a2e;
-    --section-bg: #f7faff;
-  }
-  * { box-sizing: border-box; margin: 0; padding: 0; }
-  body { font-family: 'Segoe UI', Arial, sans-serif; background: #eef3fb; color: var(--text); font-size: 14px; line-height: 1.65; }
-
-  .cover {
-    background: linear-gradient(135deg, #0d2b5e 0%, #0f6cbd 55%, #00c4b4 100%);
-    color: white; text-align: center; padding: 60px 40px 50px;
-  }
-  .cover h1 { font-size: 2.4em; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; }
-  .cover h2 { font-size: 1.2em; font-weight: 400; opacity: .85; margin-bottom: 30px; }
-  .cover .badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
-  .cover .badge { background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35); border-radius: 20px; padding: 5px 16px; font-size: .82em; }
-  .cover .subtitle { font-size: .95em; opacity: .75; margin-top: 18px; }
-
-  .container { max-width: 920px; margin: 0 auto; padding: 28px 20px 60px; }
-
-  .toc { background: white; border-radius: 12px; padding: 26px 30px; margin-bottom: 32px; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
-  .toc h2 { font-size: 1.3em; color: var(--primary); margin-bottom: 16px; border-bottom: 2px solid var(--accent); padding-bottom: 8px; }
-  .toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 6px 20px; }
-  .toc-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; }
-  .toc-num { background: var(--accent); color: white; width: 22px; height: 22px; border-radius: 50%; font-size: .75em; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
-  .toc-item a { color: var(--accent); text-decoration: none; font-size: .88em; }
-  .toc-item a:hover { text-decoration: underline; }
-
-  .section { background: white; border-radius: 12px; margin-bottom: 28px; box-shadow: 0 2px 10px rgba(0,0,0,.07); overflow: hidden; }
-  .section-header { background: linear-gradient(90deg, var(--primary), var(--accent)); color: white; padding: 14px 24px; display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
-  .section-header .sec-num { background: rgba(255,255,255,.25); border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .85em; flex-shrink: 0; }
-  .section-header h2 { font-size: 1.1em; font-weight: 700; }
-  .section-header .toggle { margin-left: auto; font-size: 1.1em; transition: transform .3s; }
-  .section-body { padding: 20px 24px; display: block; }
-  .section-body.collapsed { display: none; }
-
-  .qa { border-left: 3px solid var(--accent); padding: 10px 14px; margin-bottom: 16px; background: var(--section-bg); border-radius: 0 8px 8px 0; }
-  .qa .q { font-weight: 700; color: var(--primary); margin-bottom: 6px; font-size: .95em; }
-  .qa .q::before { content: "Q: "; color: var(--accent); }
-  .qa .a { color: var(--text); font-size: .9em; }
-  .qa .a ul { margin: 6px 0 4px 18px; }
-  .qa .a ul li { margin-bottom: 3px; }
-  .qa .a ol { margin: 6px 0 4px 18px; }
-  .qa .a ol li { margin-bottom: 3px; }
-
-  .tip { background: var(--tip-bg); border-left: 4px solid var(--tip); border-radius: 0 8px 8px 0; padding: 9px 14px; margin: 10px 0; font-size: .88em; color: #155724; }
-  .tip::before { content: "💡 Interview Tip: "; font-weight: 700; }
-  .trap { background: var(--trap-bg); border-left: 4px solid var(--trap); border-radius: 0 8px 8px 0; padding: 9px 14px; margin: 10px 0; font-size: .88em; color: var(--trap); }
-  .trap::before { content: "⚠️ Interview Trap: "; font-weight: 700; }
-  .example { background: var(--example-bg); border: 1px dashed var(--accent); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: .88em; color: #1a1a5e; }
-  .example::before { content: "📌 Example: "; font-weight: 700; color: var(--accent); }
-  .note { background: var(--warn-bg); border-left: 4px solid #ffc107; border-radius: 0 8px 8px 0; padding: 9px 14px; margin: 10px 0; font-size: .88em; color: var(--warn); }
-  .note::before { content: "📝 Note: "; font-weight: 700; }
-
-  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: .86em; }
-  th { background: var(--primary); color: white; padding: 8px 10px; text-align: left; }
-  td { border: 1px solid var(--border); padding: 7px 10px; vertical-align: top; }
-  tr:nth-child(even) td { background: #f3f7fc; }
-
-  code { background: #e8eef8; padding: 1px 6px; border-radius: 4px; font-family: Consolas, monospace; font-size: .9em; color: #0d2b5e; }
-
-  @media print {
-    body { background: white; }
-    .section-body.collapsed { display: block !important; }
-    .toggle { display: none; }
-  }
-  @media (max-width: 600px) {
-    .cover h1 { font-size: 1.6em; }
-    .section-body { padding: 14px 14px; }
+  *{box-sizing:border-box;margin:0;padding:0}
+  body{font-family:'Segoe UI',Arial,sans-serif;background:#f0f4f8;color:#1a2332;font-size:13.5px;line-height:1.6}
+  .hero{background:linear-gradient(135deg,#0f2d5e 0%,#1565c0 50%,#00acc1 100%);color:#fff;padding:40px 48px 32px;text-align:center}
+  .hero h1{font-size:28px;font-weight:700;margin-bottom:8px;letter-spacing:.5px}
+  .hero p{font-size:13px;opacity:.85;margin-bottom:18px}
+  .badges{display:flex;flex-wrap:wrap;gap:8px;justify-content:center}
+  .badge{background:rgba(255,255,255,.15);border:1px solid rgba(255,255,255,.3);border-radius:20px;padding:4px 14px;font-size:11.5px}
+  .toc{background:#fff;margin:24px 32px;border-radius:12px;padding:24px 28px;box-shadow:0 2px 12px rgba(0,0,0,.07)}
+  .toc h2{font-size:15px;font-weight:700;color:#0f2d5e;margin-bottom:14px;border-bottom:2px solid #e3eaf5;padding-bottom:8px}
+  .toc-grid{display:grid;grid-template-columns:repeat(3,1fr);gap:6px 20px}
+  .toc-item{display:flex;align-items:center;gap:8px;padding:5px 0;cursor:pointer;color:#1565c0;font-size:12.5px;text-decoration:none}
+  .toc-num{background:#1565c0;color:#fff;border-radius:50%;width:20px;height:20px;display:flex;align-items:center;justify-content:center;font-size:10px;font-weight:700;flex-shrink:0}
+  .toc-num.new{background:#e53935}
+  .sections{padding:0 32px 40px}
+  .section{background:#fff;border-radius:12px;margin-bottom:18px;box-shadow:0 2px 12px rgba(0,0,0,.06);overflow:hidden}
+  .sec-header{background:linear-gradient(90deg,#0f2d5e,#1565c0);color:#fff;padding:13px 20px;display:flex;align-items:center;gap:10px;cursor:pointer}
+  .sec-num{background:rgba(255,255,255,.25);border-radius:50%;width:26px;height:26px;display:flex;align-items:center;justify-content:center;font-size:11px;font-weight:700;flex-shrink:0}
+  .sec-num.new-badge::after{content:"NEW";background:#e53935;border-radius:10px;padding:1px 5px;font-size:9px;margin-left:4px}
+  .sec-title{font-size:14px;font-weight:600;flex:1}
+  .chevron{font-size:14px;transition:transform .3s}
+  .sec-body{padding:18px 22px;display:none}
+  .sec-body.open{display:block}
+  .qa{margin-bottom:18px}
+  .q{font-weight:700;color:#0f2d5e;margin-bottom:6px;font-size:13px}
+  .q::before{content:"Q: "}
+  .a{color:#2c3e50;margin-bottom:6px;font-size:13px}
+  table{width:100%;border-collapse:collapse;margin:10px 0;font-size:12.5px}
+  th{background:#0f2d5e;color:#fff;padding:7px 10px;text-align:left;font-weight:600}
+  td{padding:6px 10px;border-bottom:1px solid #e8eef7}
+  tr:nth-child(even) td{background:#f5f8ff}
+  .tip{background:#e8f5e9;border-left:4px solid #43a047;border-radius:0 6px 6px 0;padding:9px 13px;margin:8px 0;font-size:12.5px}
+  .tip::before{content:"💡 Interview Tip: ";font-weight:700;color:#2e7d32}
+  .trap{background:#fdecea;border-left:4px solid #e53935;border-radius:0 6px 6px 0;padding:9px 13px;margin:8px 0;font-size:12.5px}
+  .trap::before{content:"⚠️ Interview Trap: ";font-weight:700;color:#c62828}
+  .example{background:#e3f2fd;border-left:4px solid #1565c0;border-radius:0 6px 6px 0;padding:9px 13px;margin:8px 0;font-size:12.5px}
+  .example::before{content:"📌 Example: ";font-weight:700;color:#0d47a1}
+  code,pre{background:#1e2d40;color:#a8d8ea;border-radius:6px;font-family:'Courier New',monospace;font-size:11.5px}
+  code{padding:2px 6px}
+  pre{padding:12px 16px;overflow-x:auto;margin:8px 0;white-space:pre-wrap;line-height:1.7}
+  ul,ol{padding-left:18px;margin:6px 0}
+  li{margin:3px 0}
+  .new-tag{background:#e53935;color:#fff;border-radius:10px;padding:1px 6px;font-size:9.5px;font-weight:700;vertical-align:middle;margin-left:4px}
+  .divider{border:none;border-top:1px solid #e8eef7;margin:14px 0}
+  .footer{text-align:center;padding:24px;color:#78909c;font-size:12px}
+  .print-btn{position:fixed;bottom:24px;right:24px;background:#1565c0;color:#fff;border:none;border-radius:50px;padding:12px 22px;font-size:13px;font-weight:600;cursor:pointer;box-shadow:0 4px 16px rgba(21,101,192,.4);z-index:999}
+  .print-btn:hover{background:#0d47a1}
+  @media print{
+    .print-btn,.chevron{display:none}
+    .sec-body{display:block!important}
+    .section{box-shadow:none;page-break-inside:avoid}
+    body{background:#fff}
+    .sections{padding:0 10px}
+    .toc,.hero{page-break-after:avoid}
   }
 </style>
 </head>
 <body>
 
-<!-- COVER -->
-<div class="cover">
-  <h1>🌐 Power Pages</h1>
-  <h2>Quick Revision Guide — Interview Ready</h2>
+<button class="print-btn" onclick="window.print()">⬇ Save / Print PDF</button>
+
+<div class="hero">
+  <h1>Dataverse &amp; Model-Driven Apps</h1>
+  <p>Comprehensive Interview Revision Guide — 3-Year Experience Level</p>
   <div class="badges">
-    <span class="badge">⏱ 3–4 Hour Read</span>
-    <span class="badge">💡 Interview Tips</span>
+    <span class="badge">4–5 Hour Read</span>
     <span class="badge">⚠️ Interview Traps</span>
-    <span class="badge">📌 Examples</span>
+    <span class="badge">💡 Tips & Tricks</span>
+    <span class="badge">📌 Code Examples</span>
+    <span class="badge">🔴 New Topics Added</span>
     <span class="badge">Power Platform</span>
   </div>
-  <p class="subtitle">Covers all major topics | Crisp answers | Exam & Interview Focused</p>
 </div>
 
-<div class="container">
-
-<!-- TOC -->
 <div class="toc">
-  <h2>📋 Table of Contents</h2>
+  <h2>Table of Contents</h2>
   <div class="toc-grid">
-    <div class="toc-item"><span class="toc-num">1</span><a href="#s1">Power Pages Fundamentals</a></div>
-    <div class="toc-item"><span class="toc-num">2</span><a href="#s2">Site Architecture & Templates</a></div>
-    <div class="toc-item"><span class="toc-num">3</span><a href="#s3">Pages, Web Templates & Layouts</a></div>
-    <div class="toc-item"><span class="toc-num">4</span><a href="#s4">Authentication & Identity</a></div>
-    <div class="toc-item"><span class="toc-num">5</span><a href="#s5">Table Permissions</a></div>
-    <div class="toc-item"><span class="toc-num">6</span><a href="#s6">Page Permissions & Web Roles</a></div>
-    <div class="toc-item"><span class="toc-num">7</span><a href="#s7">Forms (Basic & Multistep)</a></div>
-    <div class="toc-item"><span class="toc-num">8</span><a href="#s8">Lists (Entity Lists)</a></div>
-    <div class="toc-item"><span class="toc-num">9</span><a href="#s9">Liquid Templating</a></div>
-    <div class="toc-item"><span class="toc-num">10</span><a href="#s10">JavaScript & CSS Customization</a></div>
-    <div class="toc-item"><span class="toc-num">11</span><a href="#s11">Web API (Portal Web API)</a></div>
-    <div class="toc-item"><span class="toc-num">12</span><a href="#s12">Search & Content Management</a></div>
-    <div class="toc-item"><span class="toc-num">13</span><a href="#s13">Power Pages Design Studio</a></div>
-    <div class="toc-item"><span class="toc-num">14</span><a href="#s14">Dataverse Integration</a></div>
-    <div class="toc-item"><span class="toc-num">15</span><a href="#s15">Power Automate & Plugins</a></div>
-    <div class="toc-item"><span class="toc-num">16</span><a href="#s16">Portals vs Power Pages</a></div>
-    <div class="toc-item"><span class="toc-num">17</span><a href="#s17">Site Settings & Configuration</a></div>
-    <div class="toc-item"><span class="toc-num">18</span><a href="#s18">File & Notes Attachments</a></div>
-    <div class="toc-item"><span class="toc-num">19</span><a href="#s19">ALM, Solutions & Deployment</a></div>
-    <div class="toc-item"><span class="toc-num">20</span><a href="#s20">Performance, Security & Best Practices</a></div>
+    <a class="toc-item" onclick="openSection('s1')"><span class="toc-num">1</span>Dataverse Fundamentals</a>
+    <a class="toc-item" onclick="openSection('s2')"><span class="toc-num">2</span>Tables, Columns &amp; Relationships</a>
+    <a class="toc-item" onclick="openSection('s3')"><span class="toc-num">3</span>Data Types &amp; Field Types</a>
+    <a class="toc-item" onclick="openSection('s4')"><span class="toc-num">4</span>Security Model (Deep Dive)</a>
+    <a class="toc-item" onclick="openSection('s5')"><span class="toc-num">5</span>Business Rules</a>
+    <a class="toc-item" onclick="openSection('s6')"><span class="toc-num">6</span>Dataverse Queries &amp; APIs</a>
+    <a class="toc-item" onclick="openSection('s7')"><span class="toc-num">7</span>Audit, Duplicate Detection &amp; Data Mgmt</a>
+    <a class="toc-item" onclick="openSection('s8')"><span class="toc-num">8</span>Environments &amp; Solutions</a>
+    <a class="toc-item" onclick="openSection('s9')"><span class="toc-num">9</span>Model-Driven App Fundamentals</a>
+    <a class="toc-item" onclick="openSection('s10')"><span class="toc-num">10</span>Forms</a>
+    <a class="toc-item" onclick="openSection('s11')"><span class="toc-num">11</span>Views</a>
+    <a class="toc-item" onclick="openSection('s12')"><span class="toc-num">12</span>Dashboards &amp; Charts</a>
+    <a class="toc-item" onclick="openSection('s13')"><span class="toc-num">13</span>Ribbons &amp; Command Bar</a>
+    <a class="toc-item" onclick="openSection('s14')"><span class="toc-num">14</span>Sitemap &amp; Navigation</a>
+    <a class="toc-item" onclick="openSection('s15')"><span class="toc-num">15</span>JavaScript &amp; Client-Side Scripting</a>
+    <a class="toc-item" onclick="openSection('s16')"><span class="toc-num">16</span>Plugins (Deep Dive + Code)</a>
+    <a class="toc-item" onclick="openSection('s17')"><span class="toc-num">17</span>Power Automate Integration</a>
+    <a class="toc-item" onclick="openSection('s18')"><span class="toc-num">18</span>PCF Controls (Deep Dive)</a>
+    <a class="toc-item" onclick="openSection('s19')"><span class="toc-num">19</span>ALM &amp; Deployment (Deep Dive)</a>
+    <a class="toc-item" onclick="openSection('s20')"><span class="toc-num">20</span>Performance &amp; Best Practices</a>
+    <a class="toc-item" onclick="openSection('s21')"><span class="toc-num new">21</span>Environment Variables &amp; Connection References <span class="new-tag">NEW</span></a>
+    <a class="toc-item" onclick="openSection('s22')"><span class="toc-num new">22</span>Virtual Tables (Deep Dive) <span class="new-tag">NEW</span></a>
+    <a class="toc-item" onclick="openSection('s23')"><span class="toc-num new">23</span>Elastic Tables &amp; Large Scale Data <span class="new-tag">NEW</span></a>
+    <a class="toc-item" onclick="openSection('s24')"><span class="toc-num new">24</span>Custom APIs &amp; Custom Connectors <span class="new-tag">NEW</span></a>
+    <a class="toc-item" onclick="openSection('s25')"><span class="toc-num new">25</span>Entra ID &amp; App Registration for API Access <span class="new-tag">NEW</span></a>
+    <a class="toc-item" onclick="openSection('s26')"><span class="toc-num new">26</span>Canvas App + Dataverse Integration <span class="new-tag">NEW</span></a>
+    <a class="toc-item" onclick="openSection('s27')"><span class="toc-num new">27</span>Solution Patches, Clones &amp; Managed Properties <span class="new-tag">NEW</span></a>
+    <a class="toc-item" onclick="openSection('s28')"><span class="toc-num new">28</span>Power Automate Error Handling <span class="new-tag">NEW</span></a>
   </div>
 </div>
+
+<div class="sections">
 
 <!-- S1 -->
 <div class="section" id="s1">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">1</span><h2>Power Pages Fundamentals</h2><span class="toggle">▼</span>
+  <div class="sec-header" onclick="toggle('s1')">
+    <div class="sec-num">1</div><div class="sec-title">Dataverse Fundamentals</div><div class="chevron">▼</div>
   </div>
-  <div class="section-body">
+  <div class="sec-body open">
     <div class="qa">
-      <div class="q">What is Power Pages?</div>
-      <div class="a">A low-code platform to build secure, external-facing business websites (portals) connected to Microsoft Dataverse. It is part of Power Platform. External users (customers, partners, citizens) can interact with business data through forms, lists, and pages — without needing a Dataverse/M365 license.</div>
-    </div>
-    <div class="tip">Power Pages was rebranded from Power Apps Portals in 2022. Knowing this transition shows awareness. The underlying technology is the same but the licensing, maker experience, and branding changed.</div>
-    <div class="qa">
-      <div class="q">Key use cases for Power Pages</div>
-      <div class="a">
-        <ul>
-          <li>Customer self-service portals (case submission, tracking)</li>
-          <li>Partner portals (deal registration, lead management)</li>
-          <li>Employee self-service (HR portals, onboarding)</li>
-          <li>Community portals (forums, knowledge base)</li>
-          <li>Government/citizen service portals</li>
-          <li>Event registration and survey sites</li>
-        </ul>
-      </div>
+      <div class="q">What is Microsoft Dataverse?</div>
+      <div class="a">A cloud-based, low-code data platform built on Azure that stores and manages business data used by Power Platform and Dynamics 365. It provides built-in security, business logic, and integration capabilities.</div>
+      <div class="tip">Dataverse was previously called Common Data Service (CDS). Mention this transition to show awareness.</div>
     </div>
     <div class="qa">
-      <div class="q">How does Power Pages differ from Canvas Apps or Model-Driven Apps?</div>
-      <div class="a">
-        <table>
-          <tr><th>Feature</th><th>Power Pages</th><th>Canvas App</th><th>Model-Driven App</th></tr>
-          <tr><td>Users</td><td>External (anonymous/authenticated)</td><td>Internal (licensed)</td><td>Internal (licensed)</td></tr>
-          <tr><td>UI</td><td>Website (HTML/CSS)</td><td>App screens</td><td>Data-model driven</td></tr>
-          <tr><td>Access</td><td>Browser URL, no app install</td><td>App/browser</td><td>Browser</td></tr>
-          <tr><td>Auth</td><td>AAD, B2C, OAuth, Local</td><td>AAD only</td><td>AAD only</td></tr>
-          <tr><td>License</td><td>Per authenticated user / capacity</td><td>Per user/app</td><td>Per user/app</td></tr>
-        </table>
-      </div>
+      <div class="q">How is Dataverse different from SQL Server / SharePoint?</div>
+      <table><tr><th>Feature</th><th>Dataverse</th><th>SQL Server</th><th>SharePoint</th></tr>
+      <tr><td>Built-in Security</td><td>✅ Row/column-level</td><td>Manual setup</td><td>Limited</td></tr>
+      <tr><td>Business Logic</td><td>Plugins, Business Rules</td><td>Stored Procs</td><td>Workflows only</td></tr>
+      <tr><td>API</td><td>OData/Web API</td><td>Custom</td><td>REST</td></tr>
+      <tr><td>Power Platform native</td><td>✅ First-class</td><td>Via connector</td><td>Via connector</td></tr></table>
     </div>
     <div class="qa">
-      <div class="q">Power Pages Licensing Model</div>
-      <div class="a">
-        <ul>
-          <li><strong>Authenticated users:</strong> Licensed per login (monthly active user) or per site capacity</li>
-          <li><strong>Anonymous users:</strong> Included but limited to read-only public pages</li>
-          <li><strong>Maker:</strong> Requires Power Pages maker license (or Power Apps premium)</li>
-          <li>Included free trial capacity per environment for testing</li>
-        </ul>
-      </div>
+      <div class="q">What is a Dataverse Environment?</div>
+      <div class="a">An isolated container holding data, apps, flows, and customizations. Each org gets a Default environment; additional environments (Sandbox, Production, Developer) can be created per business need.</div>
+      <div class="trap">Don't confuse "Environment" with "Organization" — in Dataverse, each environment has exactly one database (org). Classic trap question.</div>
     </div>
-    <div class="trap">Anonymous users are NOT free — they count against capacity limits if they're accessing Dataverse-connected pages. Truly static pages don't consume capacity, but any Dataverse read does.</div>
+    <div class="qa">
+      <div class="q">What is the Dataverse Web API?</div>
+      <div class="a">A RESTful API based on OData v4 protocol. Used to perform CRUD operations, execute functions/actions, and query data.</div>
+      <pre>GET /api/data/v9.2/accounts?$select=name,revenue&$filter=revenue gt 100000</pre>
+    </div>
   </div>
 </div>
 
 <!-- S2 -->
 <div class="section" id="s2">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">2</span><h2>Site Architecture & Templates</h2><span class="toggle">▼</span>
+  <div class="sec-header" onclick="toggle('s2')">
+    <div class="sec-num">2</div><div class="sec-title">Tables, Columns &amp; Relationships</div><div class="chevron">▼</div>
   </div>
-  <div class="section-body">
+  <div class="sec-body">
     <div class="qa">
-      <div class="q">Core architectural components of a Power Pages site</div>
-      <div class="a">
-        <table>
-          <tr><th>Component</th><th>Description</th></tr>
-          <tr><td>Website Record</td><td>The root configuration record in Dataverse (adx_website)</td></tr>
-          <tr><td>Web Pages</td><td>Individual pages of the site (adx_webpage)</td></tr>
-          <tr><td>Web Templates</td><td>Liquid-based HTML templates that define page rendering</td></tr>
-          <tr><td>Page Templates</td><td>Associates a web page with a web template</td></tr>
-          <tr><td>Content Snippets</td><td>Reusable text/HTML fragments managed in Dataverse</td></tr>
-          <tr><td>Web Files</td><td>Static assets (CSS, JS, images) stored in Dataverse</td></tr>
-          <tr><td>Site Settings</td><td>Key-value configuration pairs for site behaviour</td></tr>
-          <tr><td>Web Roles</td><td>Groups of authenticated users for permission control</td></tr>
-        </table>
-      </div>
+      <div class="q">Types of Tables in Dataverse</div>
+      <table><tr><th>Type</th><th>Description</th></tr>
+      <tr><td>Standard</td><td>Full CRUD, owned by users/teams</td></tr>
+      <tr><td>Activity</td><td>Time-based records (Email, Task). Inherit from ActivityPointer.</td></tr>
+      <tr><td>Virtual</td><td>Maps to external data source; no data stored in Dataverse</td></tr>
+      <tr><td>Elastic</td><td>Large-scale, high-throughput; Cosmos DB underneath</td></tr>
+      <tr><td>System</td><td>Platform tables (User, Team, Role) — limited customization</td></tr></table>
     </div>
     <div class="qa">
-      <div class="q">Starter Templates available in Power Pages</div>
-      <div class="a">
-        <ul>
-          <li><strong>Blank:</strong> Start from scratch</li>
-          <li><strong>Starter layout templates:</strong> Pre-built responsive layouts (1, 2, 3 column etc.)</li>
-          <li><strong>Solution templates:</strong> Program Management, After School Program, Book a Meeting, etc.</li>
-          <li><strong>Community portal, Customer Self-Service, Employee Self-Service, Partner Portal</strong> (legacy D365 templates)</li>
-        </ul>
-      </div>
+      <div class="q">Owner vs Organization table ownership</div>
+      <ul><li><b>User/Team owned:</b> Each record has an owner. Security model applies sharing/team-based access.</li>
+      <li><b>Organization owned:</b> All records belong to the org; any user with table access sees all records.</li></ul>
+      <div class="example">Currency table = Organization owned. Account = User/Team owned.</div>
+      <div class="trap">You CANNOT change table ownership type after creation. Classic interview trap!</div>
     </div>
-    <div class="tip">In interviews, mention that solution templates are full-featured accelerators with pre-built pages, flows, and Dataverse tables — not just UI. They significantly reduce project time.</div>
     <div class="qa">
-      <div class="q">What is the Portal Base solution?</div>
-      <div class="a">A managed solution installed in the Dataverse environment when a Power Pages site is provisioned. It contains all portal-specific tables (adx_*), security roles, and configurations. You customize ON TOP of this, not inside it.</div>
+      <div class="q">Types of Relationships in Dataverse</div>
+      <table><tr><th>Type</th><th>Description</th><th>Example</th></tr>
+      <tr><td>1:N</td><td>One parent, many children. Lookup on child.</td><td>Account → Contacts</td></tr>
+      <tr><td>N:1</td><td>Reverse view of 1:N</td><td>Contact → Account</td></tr>
+      <tr><td>N:N</td><td>Intersection table auto-created</td><td>Contact ↔ Marketing List</td></tr>
+      <tr><td>Self-referential</td><td>Table relates to itself</td><td>Manager → Employee</td></tr></table>
+    </div>
+    <div class="qa">
+      <div class="q">What is a Polymorphic Lookup?</div>
+      <div class="a">A lookup column that can reference multiple table types. Called "Customer" (Account or Contact) or "Regarding" (any activity-enabled table). Internally uses the activityparty pattern.</div>
+    </div>
+    <div class="qa">
+      <div class="q">Relationship Cascade Behaviors</div>
+      <table><tr><th>Behavior</th><th>Assign</th><th>Delete</th><th>Share/Unshare</th></tr>
+      <tr><td>Parental</td><td>Cascade</td><td>Cascade</td><td>Cascade</td></tr>
+      <tr><td>Referential</td><td>None</td><td>Remove Link</td><td>None</td></tr>
+      <tr><td>Restrict Delete</td><td>None</td><td>Restrict</td><td>None</td></tr>
+      <tr><td>Custom</td><td>Configurable</td><td>Configurable</td><td>Configurable</td></tr></table>
+      <div class="tip">Parental behavior means child records follow parent's lifecycle. Use Restrict Delete to prevent accidental deletion of parent records that have children.</div>
     </div>
   </div>
 </div>
 
 <!-- S3 -->
 <div class="section" id="s3">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">3</span><h2>Pages, Web Templates & Layouts</h2><span class="toggle">▼</span>
+  <div class="sec-header" onclick="toggle('s3')">
+    <div class="sec-num">3</div><div class="sec-title">Data Types &amp; Field Types</div><div class="chevron">▼</div>
   </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">Web Page hierarchy</div>
-      <div class="a">Web pages form a tree structure. Each page has: a <strong>Parent Page</strong>, a <strong>partial URL</strong> (slug), and is associated with a <strong>Page Template</strong>. The full URL = parent URL + partial URL. The root page (Home) has partial URL <code>/</code>.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Web Page vs Content Page (Localization)</div>
-      <div class="a">Each Web Page has one <strong>root record</strong> (adx_webpage with isroot=true) and one or more <strong>content/localized records</strong> per language. The content page holds the actual HTML/Liquid content. The root page holds the URL and navigation metadata.</div>
-    </div>
-    <div class="trap">When editing page content, you're editing the content/localized record — NOT the root record. Confusing these two causes "changes not showing" issues. Classic trap!</div>
-    <div class="qa">
-      <div class="q">What is a Page Template?</div>
-      <div class="a">Links a Web Page to a Web Template (or a rewrite path). Types:
-        <ul>
-          <li><strong>Web Template:</strong> Uses a Liquid-based web template for rendering</li>
-          <li><strong>URL Rewrite:</strong> Redirects to an ASPX page (used for system pages like login, profile)</li>
-        </ul>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">What is a Web Template?</div>
-      <div class="a">A Dataverse record containing Liquid + HTML + CSS + JS that defines how a page is rendered. Web Templates can include other templates using <code>{% include 'template-name' %}</code>. This is the core rendering engine of Power Pages.</div>
-    </div>
-    <div class="qa">
-      <div class="q">What are Content Snippets?</div>
-      <div class="a">Reusable, editable text or HTML blocks stored in Dataverse. Referenced in templates using <code>{% editable snippets 'Snippet Name' %}</code>. Supports multilingual content. Allows non-technical users to edit copy without touching templates.</div>
-    </div>
-    <div class="example">A "Footer Copyright Text" content snippet can be edited by business users in the Power Pages Studio without touching any code.</div>
-  </div>
-</div>
-
-<!-- S4 -->
-<div class="section" id="s4">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">4</span><h2>Authentication & Identity</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">Authentication options in Power Pages</div>
-      <div class="a">
-        <table>
-          <tr><th>Provider</th><th>Notes</th></tr>
-          <tr><td>Azure AD (Entra ID)</td><td>Internal users / employee portals</td></tr>
-          <tr><td>Azure AD B2C</td><td>Customer-facing; supports social login (Google, Facebook)</td></tr>
-          <tr><td>OAuth 2.0 / OpenID Connect</td><td>Any OIDC-compliant provider (Okta, Ping, Salesforce)</td></tr>
-          <tr><td>SAML 2.0</td><td>Enterprise SSO (ADFS, etc.)</td></tr>
-          <tr><td>Local Authentication</td><td>Username/password stored in Dataverse (discouraged for production)</td></tr>
-          <tr><td>Anonymous</td><td>No login; public pages only</td></tr>
-        </table>
-      </div>
-    </div>
-    <div class="tip">For B2C scenarios (customer portals), Azure AD B2C is the go-to. It handles social login, MFA, and custom user flows. Mentioning this shows real-world experience.</div>
-    <div class="qa">
-      <div class="q">How does user authentication map to Dataverse?</div>
-      <div class="a">When a user logs in, Power Pages creates or links a <strong>Contact record</strong> in Dataverse. The Contact is the authenticated user's identity. Their web roles, table permissions, and data access are all tied to this Contact record.</div>
-    </div>
-    <div class="trap">Authenticated users in Power Pages are Contacts — NOT Dataverse users (systemusers). They don't have security roles in the traditional sense; they have Web Roles. This is a very common interview trap!</div>
-    <div class="qa">
-      <div class="q">What is the Portal Contact record?</div>
-      <div class="a">A standard Dataverse Contact record associated with a portal user via the <strong>adx_portalcontact</strong> relationship. Contains web authentication details. When a user registers, a Contact + portal login record is created.</div>
-    </div>
-    <div class="qa">
-      <div class="q">What is Invitation Redemption?</div>
-      <div class="a">A mechanism to invite specific contacts to register on the portal. An <strong>Invitation record</strong> is created for a Contact, generating a unique invite code. When redeemed, the contact is registered and assigned specified web roles automatically.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Multi-factor Authentication (MFA) in Power Pages</div>
-      <div class="a">MFA is enforced via the identity provider (Azure AD / B2C / OIDC). Power Pages itself doesn't enforce MFA — it delegates to the IdP. Configure MFA policies in Azure AD B2C user flows or Conditional Access policies.</div>
-    </div>
-  </div>
-</div>
-
-<!-- S5 -->
-<div class="section" id="s5">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">5</span><h2>Table Permissions</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">What are Table Permissions?</div>
-      <div class="a">Records in Dataverse (adx_entitypermission) that define what Dataverse table data external portal users can access. Without table permissions, users get no data — all data access is denied by default.</div>
-    </div>
-    <div class="trap">By default, NO data is accessible to portal users. Table Permissions must be explicitly configured. If a form or list shows no data, missing table permissions is the #1 cause. Interviewers love this!</div>
-    <div class="qa">
-      <div class="q">Table Permission Scopes</div>
-      <div class="a">
-        <table>
-          <tr><th>Scope</th><th>Description</th><th>Use Case</th></tr>
-          <tr><td>Global</td><td>Access ALL records in the table</td><td>Read-only reference data (countries, categories)</td></tr>
-          <tr><td>Contact</td><td>Only records where a lookup points to the logged-in Contact</td><td>User's own cases, orders</td></tr>
-          <tr><td>Account</td><td>Records related to the user's parent Account</td><td>All cases for the user's company</td></tr>
-          <tr><td>Self</td><td>The Contact record itself</td><td>User profile page</td></tr>
-          <tr><td>Parent</td><td>Records related via a parent table permission (child)</td><td>Line items under an order the user can access</td></tr>
-        </table>
-      </div>
-    </div>
-    <div class="example">Scope = Contact: A portal user can only read/update Cases where Case.CustomerID = logged-in Contact's ID. They can't see other users' cases.</div>
-    <div class="qa">
-      <div class="q">Table Permission Privileges</div>
-      <div class="a">Read, Create, Write (Update), Delete, Append, Append To — same as Dataverse security roles but applied to external portal users via web roles.</div>
-    </div>
-    <div class="qa">
-      <div class="q">How are Table Permissions assigned?</div>
-      <div class="a">Table Permissions are linked to <strong>Web Roles</strong>. When a Contact has a web role, they inherit all table permissions assigned to that web role. Multiple web roles = union of all permissions.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Parent Scope — how does it work?</div>
-      <div class="a">Used for child records. Define a parent table permission first (e.g., Orders with Contact scope). Then create a child table permission for Order Lines with scope = Parent, referencing the Orders permission. Users can access order lines only for orders they can access.</div>
-    </div>
-    <div class="tip">Parent scope is the most powerful and most complex. Drawing a hierarchy diagram (Order → Order Lines) in interviews demonstrates deep understanding.</div>
-  </div>
-</div>
-
-<!-- S6 -->
-<div class="section" id="s6">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">6</span><h2>Page Permissions & Web Roles</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">What are Web Roles?</div>
-      <div class="a">Groups assigned to authenticated contacts to control: page visibility, table permissions, and site features. Every authenticated user gets the <strong>Authenticated Users</strong> web role. Anonymous users get the <strong>Anonymous Users</strong> web role automatically.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Page Permissions (Web Page Access Control Rules)</div>
-      <div class="a">Control which web roles can view or manage a web page. Two rights:
-        <ul>
-          <li><strong>Grant Change:</strong> Allows editing page content (for front-side editing)</li>
-          <li><strong>Restrict Read:</strong> Hides the page from users not in the specified web role</li>
-        </ul>
-        If no Restrict Read rule exists, page is visible to everyone (including anonymous).
-      </div>
-    </div>
-    <div class="trap">Page permissions are NOT inherited by child pages by default. You must explicitly add access control rules to child pages OR check "Apply to child pages." Missing this causes child pages to remain public!</div>
-    <div class="example">A "My Profile" page has Restrict Read for "Authenticated Users" role — only logged-in users can see it. Anonymous users hitting the URL are redirected to login.</div>
-    <div class="qa">
-      <div class="q">Authenticated Users vs Anonymous Users roles</div>
-      <div class="a">
-        <ul>
-          <li><strong>Authenticated Users:</strong> Auto-assigned to all logged-in contacts. Base role for all users.</li>
-          <li><strong>Anonymous Users:</strong> Auto-assigned to non-logged-in visitors. Use for public page table permissions.</li>
-        </ul>
-        You cannot delete these system roles.
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- S7 -->
-<div class="section" id="s7">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">7</span><h2>Forms (Basic Forms & Multistep Forms)</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">Types of Forms in Power Pages</div>
-      <div class="a">
-        <table>
-          <tr><th>Type</th><th>Old Name</th><th>Description</th></tr>
-          <tr><td>Basic Form</td><td>Entity Form</td><td>Single-step form mapped to a Dataverse form; Create/Edit/ReadOnly modes</td></tr>
-          <tr><td>Multistep Form</td><td>Web Form</td><td>Wizard-style multi-page form across multiple steps/tables</td></tr>
-        </table>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">Basic Form — key configuration</div>
-      <div class="a">
-        <ul>
-          <li><strong>Table Name:</strong> Which Dataverse table</li>
-          <li><strong>Form Name:</strong> Which Dataverse form layout to use</li>
-          <li><strong>Mode:</strong> Insert (create), Edit (update), ReadOnly</li>
-          <li><strong>Record Source Type:</strong> Query String (pass ID in URL), Current Portal User (Contact), Fixed Record</li>
-          <li><strong>On Success:</strong> Redirect, show message, or stay on page</li>
-          <li><strong>Enable Table Permissions:</strong> Must be checked to enforce security</li>
-        </ul>
-      </div>
-    </div>
-    <div class="trap">"Enable Table Permissions" on a Basic Form defaults to OFF in legacy portals. If it's unchecked, ANY authenticated user can edit ANY record — a major security risk. Always enable it!</div>
-    <div class="qa">
-      <div class="q">Multistep Form (Web Form) structure</div>
-      <div class="a"><strong>Multistep Form → Steps → each Step = Basic Form config</strong><br/>
-        Each step can target different tables, modes, and conditions. Steps support: Condition (branch), Redirect, Load Form, Load Tab.
-      </div>
-    </div>
-    <div class="example">Insurance Claim wizard: Step 1 = Claimant details (Contact), Step 2 = Claim details (Case), Step 3 = Upload documents (Notes), Step 4 = Confirmation.</div>
-    <div class="qa">
-      <div class="q">Form Events — where to add custom JS?</div>
-      <div class="a">Basic Forms support:
-        <ul>
-          <li><strong>Custom JavaScript:</strong> Added directly in the form's JS tab or via web resource</li>
-          <li>Use <code>$(document).ready()</code> or the portal's event model</li>
-          <li><code>addEventListener("loaded", ...)</code> for Multistep Forms</li>
-          <li>Field IDs follow pattern: <code>_fieldschemaname_*</code> — use <code>$("#fieldname")</code> with jQuery</li>
-        </ul>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">Form Metadata — what is it?</div>
-      <div class="a">Extra configuration records linked to a Basic Form step that modify field behavior: change label, add validation, set default values, mark required, hide fields — without modifying the underlying Dataverse form.</div>
-    </div>
-    <div class="tip">Form Metadata is very powerful — you can have one Dataverse form but multiple portal form configurations. Useful when the same table is used in different portal contexts with different field requirements.</div>
-  </div>
-</div>
-
-<!-- S8 -->
-<div class="section" id="s8">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">8</span><h2>Lists (Entity Lists / Table Lists)</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">What is a List (formerly Entity List)?</div>
-      <div class="a">A component that renders a Dataverse View as a grid/list on a Power Pages page. Supports search, filter, sorting, pagination, and actions (open record, create new, run workflow/action).</div>
-    </div>
-    <div class="qa">
-      <div class="q">Key List configuration options</div>
-      <div class="a">
-        <ul>
-          <li><strong>Table & View:</strong> Which table and which Dataverse view to display</li>
-          <li><strong>Page Size:</strong> Records per page (default 10)</li>
-          <li><strong>Search:</strong> Enable/disable search bar</li>
-          <li><strong>Filters:</strong> Column-based OData filters, user-configurable filters</li>
-          <li><strong>Actions:</strong> Create button (opens Basic Form), View (detail page), Edit, Delete</li>
-          <li><strong>Enable Table Permissions:</strong> Must be ON to enforce row-level security</li>
-          <li><strong>Override Column Attributes:</strong> Rename columns, show/hide without changing the view</li>
-        </ul>
-      </div>
-    </div>
-    <div class="trap">Just like Basic Forms, Lists have an "Enable Entity/Table Permissions" toggle. If OFF, all authenticated users see ALL records regardless of scope. Always turn this ON in production!</div>
-    <div class="qa">
-      <div class="q">List Actions — what can they do?</div>
-      <div class="a">
-        <table>
-          <tr><th>Action</th><th>Description</th></tr>
-          <tr><td>Create</td><td>Opens a Basic Form for new record creation</td></tr>
-          <tr><td>View / Edit / Delete</td><td>Row-level actions with confirmation</td></tr>
-          <tr><td>Download</td><td>Export list to Excel</td></tr>
-          <tr><td>Workflow / Action</td><td>Trigger a Power Automate flow or Custom Action on selected record</td></tr>
-        </table>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">OData Filters on Lists</div>
-      <div class="a">Lists support OData filter expressions to pre-filter records. Can be static (hardcoded) or dynamic using Liquid expressions (e.g., filter by current user's account ID using <code>{{ user.parentcustomerid.id }}</code>).</div>
-    </div>
-  </div>
-</div>
-
-<!-- S9 -->
-<div class="section" id="s9">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">9</span><h2>Liquid Templating</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">What is Liquid in Power Pages?</div>
-      <div class="a">An open-source templating language (by Shopify) extended by Microsoft for Power Pages. Used inside Web Templates, Content Snippets, and page content to dynamically render Dataverse data, handle logic, and control page output.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Liquid Syntax Basics</div>
-      <div class="a">
-        <table>
-          <tr><th>Syntax</th><th>Purpose</th><th>Example</th></tr>
-          <tr><td><code>{{ }}</code></td><td>Output expression</td><td><code>{{ user.fullname }}</code></td></tr>
-          <tr><td><code>{% %}</code></td><td>Logic/tag</td><td><code>{% if user %} ... {% endif %}</code></td></tr>
-          <tr><td><code>{# #}</code></td><td>Comment</td><td><code>{# This is a comment #}</code></td></tr>
-        </table>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">Key Liquid Objects in Power Pages</div>
-      <div class="a">
-        <table>
-          <tr><th>Object</th><th>Description</th></tr>
-          <tr><td><code>user</code></td><td>Currently logged-in Contact record</td></tr>
-          <tr><td><code>page</code></td><td>Current web page record</td></tr>
-          <tr><td><code>website</code></td><td>Current website record</td></tr>
-          <tr><td><code>request</code></td><td>HTTP request (URL, params, cookies)</td></tr>
-          <tr><td><code>sitemap</code></td><td>Site navigation tree</td></tr>
-          <tr><td><code>snippets</code></td><td>Content snippets collection</td></tr>
-          <tr><td><code>settings</code></td><td>Site Settings key-value pairs</td></tr>
-          <tr><td><code>entities</code></td><td>Query Dataverse records (respects table permissions)</td></tr>
-        </table>
-      </div>
-    </div>
-    <div class="example"><code>{% assign cases = entities['incident'] | where: 'customerid', user.id %}</code><br/>
-    <code>{% for case in cases %} {{ case.title }} {% endfor %}</code></div>
-    <div class="tip">The <code>entities</code> object respects table permissions automatically. If no permission is set, <code>entities</code> returns nothing — great for security. Always use it instead of raw fetchxml unless necessary.</div>
-    <div class="qa">
-      <div class="q">FetchXML in Liquid</div>
-      <div class="a">Use <code>{% fetchxml %}</code> tag for complex queries (joins, aggregates, ordering) that the <code>entities</code> shorthand can't handle.
-        <br/><br/>
-        <code>{% fetchxml result %}<br/>
-        &lt;fetch&gt;&lt;entity name="account"&gt;&lt;attribute name="name"/&gt;&lt;/entity&gt;&lt;/fetch&gt;<br/>
-        {% endfetchxml %}<br/>
-        {% for a in result.results.entities %} {{ a.name }} {% endfor %}</code>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">Liquid includes and block/extends pattern</div>
-      <div class="a">
-        <ul>
-          <li><code>{% include 'template-name' %}</code> — include a reusable template fragment</li>
-          <li><code>{% extends 'base-template' %}</code> + <code>{% block content %}{% endblock %}</code> — page inheritance pattern for consistent layout</li>
-        </ul>
-      </div>
-    </div>
-    <div class="trap">Liquid runs SERVER-SIDE — it cannot react to user interactions post-page-load. For dynamic client-side behavior after page load, you need JavaScript. Don't mix up Liquid (server render) with JS (client-side).</div>
-  </div>
-</div>
-
-<!-- S10 -->
-<div class="section" id="s10">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">10</span><h2>JavaScript & CSS Customization</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">How to add custom JS/CSS to Power Pages?</div>
-      <div class="a">
-        <ul>
-          <li><strong>Web Files:</strong> Upload JS/CSS files as Web Files in Dataverse; reference via URL</li>
-          <li><strong>Web Template:</strong> Embed directly in template source</li>
-          <li><strong>Basic/Multistep Form JS tab:</strong> Form-specific JS added directly in portal config</li>
-          <li><strong>Content Snippets:</strong> Small inline scripts/styles</li>
-          <li><strong>Power Pages Studio → Custom Code:</strong> Site-wide header/footer injection</li>
-        </ul>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">jQuery availability in Power Pages</div>
-      <div class="a">jQuery is included by default in Power Pages. Safe to use <code>$(document).ready()</code> patterns. Portal also includes Bootstrap for responsive layout.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Form field naming convention for JS</div>
-      <div class="a">
-        Fields on portal forms are rendered as: <code>id="&lt;tableschemaname&gt;_&lt;fieldschemaname&gt;"</code> but the exact ID can vary. Use browser dev tools to inspect. Best practice: use <code>$("[id$='_fieldname']")</code> to match end of ID for robustness.
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">How to validate form fields with JS?</div>
-      <div class="a">Power Pages uses <strong>jQuery Validate</strong> plugin. Add custom validation rules using:
-        <code>Page_Validators</code> array (legacy) or custom validator functions. For blocking save: add to <code>Page_Validators</code> with <code>validationFunction</code> that returns true/false.
-      </div>
-    </div>
-    <div class="tip">Power Pages forms use ASP.NET WebForms validation under the hood. <code>Page_Validators</code> is the Microsoft-documented way to add client-side validation that integrates with the form's validation summary.</div>
-    <div class="qa">
-      <div class="q">Bootstrap version in Power Pages</div>
-      <div class="a">Legacy portals use Bootstrap 3. New Power Pages sites use Bootstrap 5. This matters for CSS class names (e.g., <code>col-md-6</code> vs flexbox utilities). Always confirm which version is in use before writing custom CSS.</div>
-    </div>
-  </div>
-</div>
-
-<!-- S11 -->
-<div class="section" id="s11">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">11</span><h2>Power Pages Web API</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">What is the Power Pages Web API?</div>
-      <div class="a">A RESTful API endpoint exposed by Power Pages that allows client-side JavaScript to perform CRUD operations on Dataverse tables directly from the browser — without calling the Dataverse Web API directly. It respects table permissions and web roles automatically.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Web API endpoint format</div>
-      <div class="a"><code>/_api/&lt;tablename&gt;</code> — e.g., <code>/_api/contacts</code><br/>
-        Supports OData query options: <code>$select</code>, <code>$filter</code>, <code>$orderby</code>, <code>$top</code>, <code>$expand</code>.
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">How to enable the Web API?</div>
-      <div class="a">
-        <ol style="margin-left:16px;">
-          <li>Enable via Site Setting: <code>Webapi/&lt;tablename&gt;/enabled</code> = <strong>true</strong></li>
-          <li>Set which fields are accessible: <code>Webapi/&lt;tablename&gt;/fields</code> = comma-separated field names or <code>*</code></li>
-          <li>Ensure Table Permissions are configured for the web role</li>
-        </ol>
-      </div>
-    </div>
-    <div class="trap">Web API is DISABLED by default for every table. Forgetting the Site Setting is the #1 cause of 403 errors when using the portal Web API. Must explicitly opt-in per table!</div>
-    <div class="qa">
-      <div class="q">Web API — CSRF protection</div>
-      <div class="a">POST/PATCH/DELETE requests require an <strong>anti-CSRF token</strong> in the request header: <code>__RequestVerificationToken</code>. Retrieve it from the hidden input on the page: <code>$("input[name='__RequestVerificationToken']").val()</code>.</div>
-    </div>
-    <div class="example">
-      GET: <code>fetch('/_api/incidents?$select=title,statuscode&$filter=statecode eq 0')</code><br/>
-      POST: include <code>__RequestVerificationToken</code> header + JSON body
-    </div>
-    <div class="tip">The Portal Web API is scoped to the logged-in Contact's permissions. It's safer than calling Dataverse Web API directly (which would need a service account or OAuth token exposed to the client).</div>
-  </div>
-</div>
-
-<!-- S12 -->
-<div class="section" id="s12">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">12</span><h2>Search & Content Management</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">Search in Power Pages</div>
-      <div class="a">Power Pages includes a built-in <strong>Lucene-based search</strong> index (or Azure Cognitive Search in newer versions) that indexes: web pages, knowledge articles, forums, and configured Dataverse table records. Search respects security — users only see results they have table permissions for.</div>
-    </div>
-    <div class="qa">
-      <div class="q">How to enable Dataverse table search?</div>
-      <div class="a">
-        <ol style="margin-left:16px;">
-          <li>Enable Site Setting: <code>Search/Enabled</code> = true</li>
-          <li>Create a <strong>Search Boost</strong> or configure the search view per table</li>
-          <li>Set the table's "Quick Find View" in Dataverse</li>
-          <li>Re-index via portal admin (<code>/_services/about</code> page)</li>
-        </ol>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">Knowledge Base integration</div>
-      <div class="a">Power Pages has native integration with Dynamics 365 Knowledge Articles. Configure via <code>KnowledgeManagement</code> site settings. Articles are published to portal and searchable. Supports ratings, feedback, and filtering by categories/products.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Forums in Power Pages</div>
-      <div class="a">Community portal template includes <strong>Forum</strong> functionality: forum threads, posts, voting, subscriptions. Stored in Dataverse portal tables (adx_communityforum). Controlled by table permissions and web roles.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Multilingual Support</div>
-      <div class="a">Power Pages supports multiple languages via Portal Languages. Each web page has a content record per language. Users can switch language via a language picker. Content Snippets also support language variants. Configure via <code>adx_portallanguage</code> records.</div>
-    </div>
-  </div>
-</div>
-
-<!-- S13 -->
-<div class="section" id="s13">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">13</span><h2>Power Pages Design Studio</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">What is the Power Pages Design Studio?</div>
-      <div class="a">The modern, low-code visual editor for Power Pages (at make.powerpages.microsoft.com). Provides WYSIWYG page editing, section/component drag-drop, theme editor, data workspace, and security configuration — all without code.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Design Studio workspace areas</div>
-      <div class="a">
-        <table>
-          <tr><th>Area</th><th>Purpose</th></tr>
-          <tr><td>Pages</td><td>Create/edit pages, manage navigation tree</td></tr>
-          <tr><td>Styling</td><td>Theme colors, fonts, global CSS</td></tr>
-          <tr><td>Data</td><td>Configure tables, forms, lists, permissions</td></tr>
-          <tr><td>Set up</td><td>Authentication, progressive display, site settings</td></tr>
-          <tr><td>Security</td><td>Table permissions, web roles (new security wizard)</td></tr>
-        </table>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">Visual Editor vs Portal Management App</div>
-      <div class="a">
-        <table>
-          <tr><th></th><th>Design Studio</th><th>Portal Management App</th></tr>
-          <tr><td>Type</td><td>Visual WYSIWYG</td><td>Model-Driven App (admin)</td></tr>
-          <tr><td>Audience</td><td>Makers, designers</td><td>Developers, admins</td></tr>
-          <tr><td>Best for</td><td>Pages, sections, styling</td><td>Advanced config (web templates, site settings, liquid)</td></tr>
-          <tr><td>Access</td><td>make.powerpages.microsoft.com</td><td>Via Environment → Apps</td></tr>
-        </table>
-      </div>
-    </div>
-    <div class="tip">For interviews: Design Studio is the "maker" experience. Portal Management App (PMA) is the "pro developer" experience. Know both — most real projects use PMA for complex configurations that Studio can't handle.</div>
-    <div class="qa">
-      <div class="q">Sections and Components in Design Studio</div>
-      <div class="a">Pages are composed of <strong>Sections</strong> (layout rows) containing <strong>Components</strong>: Text, Image, Button, Spacer, IFrame, Form, List, Power BI report, Chatbot (Copilot), custom HTML, and more.</div>
-    </div>
-  </div>
-</div>
-
-<!-- S14 -->
-<div class="section" id="s14">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">14</span><h2>Dataverse Integration</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">How does Power Pages connect to Dataverse?</div>
-      <div class="a">Power Pages runs in the same environment as Dataverse. It connects using a <strong>portal application user</strong> (a special system user) with specific privileges. All portal operations go through this app user, governed by table permissions for external users.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Portal Application User</div>
-      <div class="a">An auto-created Dataverse system user named <strong>"Power Pages [site name]"</strong>. It has the <strong>System Administrator</strong> role by default (in some versions) or a scoped portal role. This is how Power Pages accesses Dataverse server-side. Do NOT confuse with portal Contacts (external users).</div>
-    </div>
-    <div class="trap">The portal Application User runs with elevated privileges internally. Table permissions are what restrict EXTERNAL user access — not the app user's security role. Security is enforced at the portal layer, not at the app user level.</div>
-    <div class="qa">
-      <div class="q">Notes & Attachments on forms</div>
-      <div class="a">Enable "Enable Notes" on a Basic Form to allow file uploads stored as Dataverse Notes (annotations). Configure: allowed file types, max size, view/delete permissions. Files stored in Dataverse blob storage.</div>
-    </div>
-    <div class="qa">
-      <div class="q">SharePoint integration for file storage</div>
-      <div class="a">If SharePoint integration is enabled on the Dataverse environment, portal file uploads can be stored in SharePoint document libraries instead of Dataverse notes. Configure via <code>SharePoint/Enabled</code> site setting and SharePoint document location setup.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Triggering Power Automate from Portal</div>
-      <div class="a">
-        <ul>
-          <li>Via <strong>Basic Form On Save action</strong>: trigger a workflow/flow on record create/update</li>
-          <li>Via <strong>List Action button</strong>: run flow on selected record</li>
-          <li>Via <strong>Portal Web API</strong> + client-side logic: custom HTTP trigger flows</li>
-          <li>Dataverse plugin on table: fires when portal creates/updates records</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- S15 -->
-<div class="section" id="s15">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">15</span><h2>Power Automate & Plugins with Power Pages</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">When do Dataverse Plugins fire for portal operations?</div>
-      <div class="a">Plugins registered on standard Dataverse messages (Create, Update, Delete) fire normally when portal forms submit. The portal app user is the <code>InitiatingUserId</code> unless impersonation is configured. Plugins don't know the request came from portal vs. API — they just see a Dataverse operation.</div>
-    </div>
-    <div class="qa">
-      <div class="q">How to identify portal-initiated operations in plugins?</div>
-      <div class="a">Check <code>context.InitiatingUserId</code> against the portal application user's ID. Or check for a custom field/flag set by the portal form before the plugin uses it as a discriminator.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Sending emails from portal actions</div>
-      <div class="a">Options:
-        <ul>
-          <li>Power Automate flow triggered on record create (most common)</li>
-          <li>Dataverse plugin using <code>SendEmail</code> message</li>
-          <li>Portal's built-in email confirmation (for invitation redemption, registration)</li>
-          <li>Custom SMTP via Power Automate connector</li>
-        </ul>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">Custom Actions (APIs) called from portal</div>
-      <div class="a">Portal Liquid can call Dataverse Custom Actions using:
-        <code>{% entityform ... %}</code> with action configuration, or via Portal Web API JavaScript: POST to <code>/_api/&lt;tablename&gt;(&lt;id&gt;)/Microsoft.Dynamics.CRM.&lt;ActionName&gt;</code>.
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- S16 -->
-<div class="section" id="s16">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">16</span><h2>Power Apps Portals vs Power Pages</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">What changed when Portals became Power Pages?</div>
-      <div class="a">
-        <table>
-          <tr><th>Aspect</th><th>Power Apps Portals (old)</th><th>Power Pages (new)</th></tr>
-          <tr><td>Brand</td><td>Power Apps Portals</td><td>Power Pages (standalone)</td></tr>
-          <tr><td>Maker Experience</td><td>Studio inside Power Apps</td><td>Dedicated make.powerpages.microsoft.com</td></tr>
-          <tr><td>Licensing</td><td>Per login / capacity add-on for Power Apps</td><td>Standalone Power Pages licensing</td></tr>
-          <tr><td>Templates</td><td>D365-specific templates</td><td>Modern solution templates + blank</td></tr>
-          <tr><td>Design Studio</td><td>Limited</td><td>Enhanced WYSIWYG + Copilot assistance</td></tr>
-          <tr><td>AI / Copilot</td><td>None</td><td>Copilot for makers (generate pages from prompt)</td></tr>
-        </table>
-      </div>
-    </div>
-    <div class="note">The underlying engine is the same. Existing Portals sites work as Power Pages sites. Code, Liquid, table structure — all unchanged. It's a branding + maker experience + licensing change.</div>
-    <div class="qa">
-      <div class="q">Copilot in Power Pages</div>
-      <div class="a">Power Pages includes Copilot features for makers:
-        <ul>
-          <li>Generate page layout from natural language description</li>
-          <li>Generate forms and lists by describing the data need</li>
-          <li>AI-assisted theme generation</li>
-          <li>Copilot chatbot widget for site visitors (powered by Copilot Studio)</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- S17 -->
-<div class="section" id="s17">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">17</span><h2>Site Settings & Configuration</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">What are Site Settings?</div>
-      <div class="a">Key-value configuration records (adx_sitesetting) stored in Dataverse that control portal behaviour. Changed via Portal Management App or Design Studio → Set up. No code deployment needed — changes take effect after portal cache clear.</div>
-    </div>
-    <div class="qa">
-      <div class="q">Critical Site Settings to know</div>
-      <div class="a">
-        <table>
-          <tr><th>Setting</th><th>Purpose</th></tr>
-          <tr><td><code>Authentication/Registration/Enabled</code></td><td>Allow new user registration</td></tr>
-          <tr><td><code>Authentication/Registration/LocalLoginEnabled</code></td><td>Enable local username/password login</td></tr>
-          <tr><td><code>Webapi/&lt;table&gt;/enabled</code></td><td>Enable Web API for a table</td></tr>
-          <tr><td><code>Webapi/&lt;table&gt;/fields</code></td><td>Fields accessible via Web API</td></tr>
-          <tr><td><code>Search/Enabled</code></td><td>Enable portal search</td></tr>
-          <tr><td><code>HTTP/X-Frame-Options</code></td><td>Clickjacking protection (SAMEORIGIN/DENY)</td></tr>
-          <tr><td><code>Site/EnableDefaultHtmlEncoding</code></td><td>XSS protection (encode HTML output)</td></tr>
-          <tr><td><code>KnowledgeManagement/DisplayNotes</code></td><td>Show KB article notes on portal</td></tr>
-        </table>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">Portal Cache and how to clear it</div>
-      <div class="a">Power Pages caches configuration (web templates, site settings, permissions) for performance. After changes in PMA, clear cache via:
-        <ul>
-          <li><strong>Admin Center → Portal Actions → Clear Cache</strong></li>
-          <li>Append <code>/_services/about</code> to URL → "Clear Cache" button (for admins)</li>
-        </ul>
-        Without clearing cache, changes may not reflect for up to 15 minutes.
-      </div>
-    </div>
-    <div class="trap">Making changes in Portal Management App and not seeing them? Clear the portal cache. Forgetting to clear cache is the most common "why isn't it working" scenario in portal development!</div>
-  </div>
-</div>
-
-<!-- S18 -->
-<div class="section" id="s18">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">18</span><h2>File & Notes Attachments</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">How do file uploads work in Power Pages?</div>
-      <div class="a">Basic Forms with "Notes" enabled store uploaded files as Dataverse <strong>Annotation (Note) records</strong> linked to the parent record. Each file = one annotation with the document body stored as base64 in Dataverse (or SharePoint if integrated).</div>
-    </div>
-    <div class="qa">
-      <div class="q">File attachment configuration options</div>
-      <div class="a">
-        <ul>
-          <li>Allowed MIME types (restrict file types)</li>
-          <li>Maximum file size (default: 10 MB, configurable via site setting)</li>
-          <li>Restrict note to table (prevent users from seeing unrelated notes)</li>
-          <li>Allow multiple file uploads per form submission</li>
-        </ul>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">Site setting for max file upload size</div>
-      <div class="a"><code>SharePoint/MaxUploadSize</code> or the Dataverse email attachment size setting. For Dataverse notes: the attachment size limit is set in Dataverse System Settings (Email tab → "Maximum file size").</div>
-    </div>
-    <div class="qa">
-      <div class="q">Web Files — what are they?</div>
-      <div class="a">Static assets (CSS, JS, images, PDFs) stored as Dataverse <strong>Web File records</strong> (adx_webfile). Accessible via URL path. Used to serve custom stylesheets, scripts, and downloadable documents directly from the portal.</div>
-    </div>
-    <div class="tip">Web Files have their own page permissions — you can restrict download of a PDF to authenticated users only by setting a Web Page Access Control Rule on the parent Web File page.</div>
-  </div>
-</div>
-
-<!-- S19 -->
-<div class="section" id="s19">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">19</span><h2>ALM, Solutions & Deployment</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">Is Power Pages content in Dataverse solutions?</div>
-      <div class="a">Yes — all portal configuration (web pages, templates, forms, lists, site settings, permissions) is stored as Dataverse records in portal tables (adx_*). These can be included in Dataverse solutions for ALM just like any other component.</div>
-    </div>
-    <div class="qa">
-      <div class="q">How to migrate a Power Pages site between environments?</div>
-      <div class="a">
-        <ol style="margin-left:16px;">
-          <li><strong>Option A — Solution export/import:</strong> Add portal components to a solution; export unmanaged; import to target</li>
-          <li><strong>Option B — Configuration Migration Tool (CMT):</strong> Export portal configuration data as a ZIP; import to target environment. Best for data-heavy migrations.</li>
-          <li><strong>Option C — PAC CLI:</strong> <code>pac paportal download/upload</code> commands for source-controlled portal deployments</li>
-        </ol>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">PAC CLI for Power Pages</div>
-      <div class="a">
-        <table>
-          <tr><th>Command</th><th>Purpose</th></tr>
-          <tr><td><code>pac paportal list</code></td><td>List portals in environment</td></tr>
-          <tr><td><code>pac paportal download --path ./portal</code></td><td>Download portal content to local folder</td></tr>
-          <tr><td><code>pac paportal upload --path ./portal</code></td><td>Upload local portal content to environment</td></tr>
-        </table>
-      </div>
-    </div>
-    <div class="tip">PAC CLI portal download stores web templates, pages, content snippets as YAML/HTML files — perfect for Git-based version control. This is the modern DevOps approach for Power Pages.</div>
-    <div class="qa">
-      <div class="q">Common deployment gotchas</div>
-      <div class="a">
-        <ul>
-          <li>Web roles must exist in target environment (create them or include in solution)</li>
-          <li>Table permissions reference web roles — deploy roles before permissions</li>
-          <li>Authentication provider settings are environment-specific (client IDs, secrets) — update site settings after deploy</li>
-          <li>Website binding must be reconfigured in target environment</li>
-        </ul>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- S20 -->
-<div class="section" id="s20">
-  <div class="section-header" onclick="toggle(this)">
-    <span class="sec-num">20</span><h2>Performance, Security & Best Practices</h2><span class="toggle">▼</span>
-  </div>
-  <div class="section-body">
-    <div class="qa">
-      <div class="q">Top Security Best Practices</div>
-      <div class="a">
-        <ul>
-          <li>Always enable Table Permissions on Lists and Basic Forms</li>
-          <li>Use most restrictive scope possible (Contact > Account > Global)</li>
-          <li>Disable local authentication in production; use AAD/B2C</li>
-          <li>Set <code>HTTP/X-Frame-Options</code> = SAMEORIGIN to prevent clickjacking</li>
-          <li>Set <code>Site/EnableDefaultHtmlEncoding</code> = true to prevent XSS via Liquid</li>
-          <li>Never expose sensitive fields in Web API — be explicit with <code>fields</code> setting</li>
-          <li>Use Column Security Profiles in Dataverse to restrict sensitive fields</li>
-          <li>Restrict file uploads to specific MIME types only</li>
-        </ul>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">Top Performance Best Practices</div>
-      <div class="a">
-        <ul>
-          <li>Use <code>$select</code> in Liquid entity queries — fetch only needed columns</li>
-          <li>Add FetchXML <code>top</code> attribute — never fetch unbounded result sets</li>
-          <li>Cache expensive Liquid results using <code>{% cache %}</code> tag (object cache)</li>
-          <li>Minimize web files (combine CSS/JS where possible)</li>
-          <li>Use CDN for static assets — Power Pages supports Azure CDN integration</li>
-          <li>Use lazy loading for images on long pages</li>
-          <li>Avoid complex Liquid logic in header/footer templates (runs on every page)</li>
-        </ul>
-      </div>
-    </div>
-    <div class="qa">
-      <div class="q">Liquid Object Cache</div>
-      <div class="a">Use <code>{% cache 'key' timeout:300 %} ... {% endcache %}</code> to cache rendered output for N seconds. Great for expensive FetchXML queries used on every page (e.g., navigation categories, product lists).</div>
-    </div>
-    <div class="qa">
-      <div class="q">Portal Checker tool</div>
-      <div class="a">Built-in diagnostic tool in Power Pages admin center. Checks for: misconfigured authentication, missing table permissions, site settings issues, performance anti-patterns. Run before go-live and after major changes.</div>
-    </div>
-    <div class="trap">Not running Portal Checker before go-live is a common mistake. It can catch security misconfigurations (like open table permissions) that would expose data to all users.</div>
-    <div class="qa">
-      <div class="q">Common interview scenario questions & quick answers</div>
-      <div class="a">
-        <table>
-          <tr><th>Scenario</th><th>Answer</th></tr>
-          <tr><td>User logs in but sees no data on list</td><td>Missing Table Permission or "Enable Table Permissions" is OFF</td></tr>
-          <tr><td>Changes in PMA not showing on site</td><td>Clear the portal cache</td></tr>
-          <tr><td>User can access a restricted page without login</td><td>Missing/incorrect Web Page Access Control Rule</td></tr>
-          <tr><td>Web API returning 403</td><td>Site Setting <code>Webapi/table/enabled</code> not set OR table permission missing</td></tr>
-          <tr><td>Child page is publicly accessible despite parent being restricted</td><td>Access control rules not applied to child pages (not inherited by default)</td></tr>
-          <tr><td>New registered user can't see company data</td><td>Contact not linked to Account OR Account-scope table permission not configured</td></tr>
-        </table>
-      </div>
-    </div>
-  </div>
-</div>
-
-<!-- Footer -->
-<div style="text-align:center; color:#888; font-size:.8em; margin-top:40px; padding:20px; background:white; border-radius:12px;">
-  <strong>Power Pages Quick Revision Guide</strong><br/>
-  Covers: Architecture · Auth · Table Permissions · Forms · Lists · Liquid · Web API · ALM · Security<br/>
-  <span style="color: var(--accent);">Good luck with your interview! 🚀</span>
-</div>
-
-</div>
-<script>
-function toggle(header) {
-  const body = header.nextElementSibling;
-  const icon = header.querySelector('.toggle');
-  body.classList.toggle('collapsed');
-  icon.textContent = body.classList.contains('collapsed') ? '▶' : '▼';
-}
-</script>
-</body>
-</html>
+  <div class="sec-body">
+    <div class="qa">
+      <div class="q">Key Column/Field Types in Dataverse</div>
+      <table><tr><th>Type</th><th>Notes</th></tr>
+      <tr><td>Text (Single-line)</td><td>Max 4000 chars; subtypes: Email, URL, Phone, Ticker</td></tr>
+      <tr><td>Multi-line Text</td><td>Up to 1,048,576 chars</td></tr>
+      <tr><td>Whole Number</td><td>Subtypes: None, Duration, Timezone, Language</td></tr>
+      <tr><td>Decimal / Float</td><td>Decimal = precise (10 decimal places); Float = approximation</td></tr>
+      <tr><td>Currency</td><td>Stores base + org currency values automatically</td></tr>
+      <tr><td>Date/Time</td><td>Modes: User Local, Date Only, Time Zone Independent</td></tr>
+      <tr><td>Choice (Picklist)</td><td>Global or local option set</td></tr>
+      <tr><td>Choices (Multi-select)</td><td>Multiple values from option set</td></tr>
+      <tr><td>Lookup</td><td>Reference to another table row</td></tr>
+      <tr><td>File / Image</td><td>Binary; Image stores thumbnail + full</td></tr>
+      <tr><td>Calculated</td><td>Derived from formula, computed server-side</td></tr>
