@@ -1,0 +1,689 @@
+import React from 'react';
+import { FileDown } from 'lucide-react';
+
+const PowerPagesPDF = () => {
+  const downloadPDF = () => {
+    const element = document.getElementById('pdf-content');
+    const opt = {
+      margin: 0.5,
+      filename: 'Power_Pages_Interview_Guide_3YRS.pdf',
+      image: { type: 'jpeg', quality: 0.98 },
+      html2canvas: { scale: 2, useCORS: true },
+      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
+    };
+    
+    // Check if html2pdf is already loaded
+    if (window.html2pdf) {
+      window.html2pdf().set(opt).from(element).save();
+    } else {
+      // Load html2pdf library
+      const script = document.createElement('script');
+      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
+      script.onload = function() {
+        window.html2pdf().set(opt).from(element).save();
+      };
+      document.body.appendChild(script);
+    }
+  };
+
+  return (
+    <div className="min-h-screen bg-gray-50 p-4">
+      <div className="max-w-4xl mx-auto">
+        <div className="bg-white rounded-lg shadow-lg p-6 mb-4">
+          <div className="flex justify-between items-center">
+            <h1 className="text-2xl font-bold text-blue-900">Power Pages Interview Guide</h1>
+            <button 
+              onClick={downloadPDF}
+              className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
+            >
+              <FileDown size={20} />
+              Download PDF
+            </button>
+          </div>
+          <p className="text-gray-600 mt-2">For 3+ Years Experience | Solution Architect</p>
+        </div>
+
+        <div id="pdf-content" className="bg-white rounded-lg shadow-lg p-8">
+          
+          {/* Cover Page */}
+          <div className="text-center mb-12 pb-12 border-b-4 border-blue-600">
+            <h1 className="text-4xl font-bold text-blue-900 mb-4">Power Pages</h1>
+            <h2 className="text-2xl font-semibold text-gray-700 mb-2">Interview Preparation Guide</h2>
+            <p className="text-xl text-gray-600 mb-8">For 3+ Years Experience</p>
+            <div className="bg-blue-50 p-6 rounded-lg inline-block">
+              <p className="text-lg font-semibold text-blue-800">Solution Architect Level</p>
+              <p className="text-gray-600 mt-2">Comprehensive Coverage | Interview-Focused</p>
+            </div>
+          </div>
+
+          {/* Table of Contents */}
+          <div className="mb-12 pb-8 border-b-2 border-gray-200">
+            <h2 className="text-2xl font-bold text-blue-900 mb-6">Table of Contents</h2>
+            <div className="space-y-2 text-gray-700">
+              <p className="font-semibold">1. Introduction to Power Pages</p>
+              <p className="font-semibold">2. Core Components</p>
+              <p className="font-semibold">3. Security (Interview Critical)</p>
+              <p className="font-semibold">4. Customization & Development</p>
+              <p className="font-semibold">5. Integration Approaches</p>
+              <p className="font-semibold">6. ALM & Deployment</p>
+              <p className="font-semibold">7. Top 20 Interview Questions</p>
+              <p className="font-semibold">8. Real-Time Project Example</p>
+            </div>
+          </div>
+
+          {/* Section 1 */}
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">1. Introduction to Power Pages</h2>
+            
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">What is Power Pages?</h3>
+            <ul className="space-y-2 text-gray-700 ml-6">
+              <li>• Low-code platform for building external-facing websites</li>
+              <li>• Connected directly to Microsoft Dataverse</li>
+              <li>• Enables secure data access for external users (customers, partners, vendors)</li>
+              <li>• Part of Microsoft Power Platform ecosystem</li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Architecture Overview</h3>
+            <div className="bg-gray-50 p-4 rounded-lg mb-4">
+              <p className="text-sm text-gray-700 font-mono">
+                Power Pages Website (Frontend)<br/>
+                ↓<br/>
+                Authentication Layer<br/>
+                ↓<br/>
+                Web Roles & Table Permissions<br/>
+                ↓<br/>
+                Microsoft Dataverse (Backend)
+              </p>
+            </div>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Power Pages vs Power Apps Portal</h3>
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <p className="text-gray-700"><strong>Key Point:</strong> Power Apps Portal is the OLD name. Power Pages is the NEW branding (same technology, rebranded in 2022).</p>
+              <ul className="mt-2 space-y-1 text-gray-700 ml-6">
+                <li>• Same licensing model (per authenticated user or capacity)</li>
+                <li>• Modern design studio in Power Pages</li>
+                <li>• Legacy portal management app still available</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Section 2 */}
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">2. Core Components</h2>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Websites</h3>
+            <ul className="space-y-1 text-gray-700 ml-6">
+              <li>• Container for all portal content</li>
+              <li>• Each website has unique Website ID and binding</li>
+              <li>• Multiple websites possible per environment</li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Tables & Forms</h3>
+            <p className="text-gray-700 mb-2"><strong>Basic Forms:</strong></p>
+            <ul className="space-y-1 text-gray-700 ml-6">
+              <li>• Single record CRUD operations</li>
+              <li>• Modes: Insert, Edit, ReadOnly</li>
+              <li>• Configuration: Success redirect, validation, file uploads</li>
+            </ul>
+            <p className="text-gray-700 mb-2 mt-3"><strong>Advanced Forms:</strong></p>
+            <ul className="space-y-1 text-gray-700 ml-6">
+              <li>• Multi-step wizard-style data collection</li>
+              <li>• Conditional navigation between steps</li>
+              <li>• Example: Loan application (Personal → Financial → Documents)</li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Lists</h3>
+            <ul className="space-y-1 text-gray-700 ml-6">
+              <li>• Grid view of Dataverse records</li>
+              <li>• Based on Dataverse views (system or custom)</li>
+              <li>• Features: Search, filter, pagination, actions (Create/Edit/Delete)</li>
+              <li>• Respects table permissions (automatic security)</li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Web Roles</h3>
+            <ul className="space-y-1 text-gray-700 ml-6">
+              <li>• Security containers grouping users</li>
+              <li>• Define WHO can access what</li>
+              <li>• Assigned via N:N relationship with Contact</li>
+              <li>• Types: Authenticated Users, Anonymous Users, Custom Roles</li>
+              <li>• One user can have multiple roles (cumulative permissions)</li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Table Permissions (Critical)</h3>
+            <div className="bg-yellow-50 p-4 rounded-lg mb-3">
+              <p className="font-semibold text-gray-800 mb-2">5 Permission Scopes:</p>
+              <ul className="space-y-1 text-gray-700 ml-6">
+                <li><strong>1. Global:</strong> All records in table (Admin access)</li>
+                <li><strong>2. Contact:</strong> Records where user's contact = lookup field</li>
+                <li><strong>3. Account:</strong> Records where user's account = account lookup</li>
+                <li><strong>4. Parent:</strong> Child records based on parent record access</li>
+                <li><strong>5. Self:</strong> Only user's own contact record</li>
+              </ul>
+            </div>
+            <p className="text-gray-700"><strong>Privilege Types:</strong> Create, Read, Write, Delete, Append, Append To</p>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Authentication Providers</h3>
+            <ul className="space-y-1 text-gray-700 ml-6">
+              <li>• Azure AD (Entra ID) - Enterprise SSO</li>
+              <li>• Azure AD B2C - Social + enterprise identities</li>
+              <li>• Local Authentication - Username/password in Dataverse</li>
+              <li>• OAuth 2.0 - Google, Facebook, LinkedIn, Microsoft</li>
+              <li>• SAML 2.0 - Custom enterprise providers</li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Site Settings</h3>
+            <ul className="space-y-1 text-gray-700 ml-6">
+              <li>• Key-value pairs for configuration</li>
+              <li>• Control behavior without code changes</li>
+              <li>• Examples: Authentication/Registration/Enabled, Search/Enabled</li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Content Snippets</h3>
+            <ul className="space-y-1 text-gray-700 ml-6">
+              <li>• Reusable text blocks across pages</li>
+              <li>• Support HTML and Liquid syntax</li>
+              <li>• Editable by non-technical content authors</li>
+            </ul>
+          </div>
+
+          {/* Section 3 - Security */}
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">3. Security (Interview Critical)</h2>
+
+            <div className="bg-red-50 p-4 rounded-lg mb-6">
+              <p className="font-bold text-red-800">⚠️ Most Important Section for Interviews</p>
+              <p className="text-gray-700 mt-1">Deep understanding of security is essential for Solution Architect role</p>
+            </div>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3">Table Permission Examples</h3>
+
+            <div className="bg-gray-50 p-4 rounded-lg mb-4">
+              <p className="font-semibold text-gray-800 mb-2">Example 1: Contact Scope (Most Common)</p>
+              <p className="text-sm text-gray-700 mb-1"><strong>Scenario:</strong> User sees only THEIR cases</p>
+              <ul className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>• Table: Case</li>
+                <li>• Scope: Contact</li>
+                <li>• Relationship: customerid_contact</li>
+                <li>• Privileges: Read ✓, Write ✓, Delete ✗</li>
+                <li>• Result: User sees cases where customerid = their Contact ID</li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 p-4 rounded-lg mb-4">
+              <p className="font-semibold text-gray-800 mb-2">Example 2: Account Scope</p>
+              <p className="text-sm text-gray-700 mb-1"><strong>Scenario:</strong> User sees ALL cases for their company</p>
+              <ul className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>• Table: Case</li>
+                <li>• Scope: Account</li>
+                <li>• Relationship: customerid_account → Contact.parentcustomerid</li>
+                <li>• Result: All users from same company see shared cases</li>
+              </ul>
+            </div>
+
+            <div className="bg-gray-50 p-4 rounded-lg mb-4">
+              <p className="font-semibold text-gray-800 mb-2">Example 3: Parent Scope</p>
+              <p className="text-sm text-gray-700 mb-1"><strong>Scenario:</strong> User can add notes only on accessible cases</p>
+              <ul className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>• Table: Annotation (Notes)</li>
+                <li>• Scope: Parent</li>
+                <li>• Parent Relationship: Case (objectid_incident)</li>
+                <li>• Privileges: Read ✓, Create ✓</li>
+                <li>• Result: Notes visible only on cases user can already access</li>
+              </ul>
+            </div>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Record-Level Security Flow</h3>
+            <div className="bg-blue-50 p-4 rounded-lg">
+              <ol className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>1. User requests a Case record (ID = 123)</li>
+                <li>2. Portal checks: Is user authenticated? → Yes</li>
+                <li>3. Retrieves user's Web Roles → ["Customer", "Premium"]</li>
+                <li>4. Gets Table Permissions for Case + these roles</li>
+                <li>5. Evaluates scope conditions (Contact/Account/Parent)</li>
+                <li>6. Applies filter to Dataverse query</li>
+                <li>7. If record matches → Display | If not → Access Denied</li>
+                <li>8. Security enforced server-side (cannot be bypassed)</li>
+              </ol>
+            </div>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Real-World Security Scenario</h3>
+            <div className="bg-green-50 p-4 rounded-lg">
+              <p className="font-semibold text-gray-800 mb-2">Multi-Tier Vendor Portal</p>
+              <p className="text-sm text-gray-700 mb-2"><strong>Web Roles:</strong></p>
+              <ul className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>• Vendor-Basic: View own orders, submit invoices</li>
+                <li>• Vendor-Premium: + Access to forecasts, priority support</li>
+                <li>• Vendor-Admin: + Manage team members</li>
+              </ul>
+              <p className="text-sm text-gray-700 mb-2 mt-3"><strong>Implementation:</strong></p>
+              <ul className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>• Purchase Orders: Account scope (all roles, Read only)</li>
+                <li>• Forecasts: Account scope (Premium/Admin only)</li>
+                <li>• Team Contacts: Account scope (Admin only, Create/Edit)</li>
+                <li>• Page Access: /forecasts → Premium/Admin only</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Section 4 - Customization */}
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">4. Customization & Development</h2>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3">Liquid Templates</h3>
+            <ul className="space-y-1 text-gray-700 ml-6 mb-3">
+              <li>• Server-side template language (by Shopify)</li>
+              <li>• Processes before HTML rendering</li>
+              <li>• Access: user context, Dataverse data, request parameters</li>
+            </ul>
+            
+            <p className="text-gray-700 mb-2"><strong>Common Filters:</strong> date, upcase, downcase, default, split, join</p>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">JavaScript Usage</h3>
+            <ul className="space-y-1 text-gray-700 ml-6 mb-3">
+              <li>• Place in Content Snippets or Web Templates</li>
+              <li>• jQuery included by default</li>
+              <li>• Use for form validation, dynamic UI, API calls</li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Web API Access</h3>
+            <ul className="space-y-1 text-gray-700 ml-6 mb-3">
+              <li>• Direct access to Dataverse via REST API</li>
+              <li>• Respects table permissions automatically</li>
+              <li>• Use for AJAX operations</li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Web Templates</h3>
+            <ul className="space-y-1 text-gray-700 ml-6">
+              <li>• Reusable page layouts (HTML + Liquid)</li>
+              <li>• Structure: Header → Content → Footer</li>
+              <li>• Can include other templates (partials)</li>
+            </ul>
+          </div>
+
+          {/* Section 5 - Integration */}
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">5. Integration Approaches</h2>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3">Three Ways to Call External APIs</h3>
+
+            <div className="bg-blue-50 p-4 rounded-lg mb-4">
+              <p className="font-semibold text-gray-800 mb-2">Approach 1: Power Automate (Recommended)</p>
+              <ul className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>• <strong>Best For:</strong> Asynchronous operations, simple integrations</li>
+                <li>• <strong>Flow:</strong> Form submit → Dataverse record → Power Automate triggers → Call API → Update record</li>
+                <li>• <strong>Example:</strong> Submit support ticket → Create in ServiceNow</li>
+                <li>• <strong>Pros:</strong> No code, built-in connectors, easy maintenance</li>
+                <li>• <strong>Cons:</strong> Not real-time (1-2 min delay)</li>
+              </ul>
+            </div>
+
+            <div className="bg-blue-50 p-4 rounded-lg mb-4">
+              <p className="font-semibold text-gray-800 mb-2">Approach 2: Azure Functions</p>
+              <ul className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>• <strong>Best For:</strong> Real-time response, complex logic</li>
+                <li>• <strong>Flow:</strong> JavaScript → HTTPS POST → Azure Function → External API → Response to portal</li>
+                <li>• <strong>Example:</strong> Credit score check during registration</li>
+                <li>• <strong>Pros:</strong> Real-time, full control, high performance</li>
+                <li>• <strong>Cons:</strong> Requires coding, additional Azure resource</li>
+              </ul>
+            </div>
+
+            <div className="bg-blue-50 p-4 rounded-lg mb-4">
+              <p className="font-semibold text-gray-800 mb-2">Approach 3: Dataverse Plugin</p>
+              <ul className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>• <strong>Best For:</strong> Complex server-side business logic</li>
+                <li>• <strong>Flow:</strong> Form submit → Record created → Plugin executes → API call → Update record</li>
+                <li>• <strong>Example:</strong> Auto-create ticket in external system on case creation</li>
+                <li>• <strong>Pros:</strong> Server-side, secure, no client exposure</li>
+                <li>• <strong>Cons:</strong> .NET development required</li>
+              </ul>
+            </div>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Common Integration Patterns</h3>
+            <ul className="space-y-2 text-gray-700 ml-6">
+              <li>• <strong>Email Notifications:</strong> Power Automate triggered on status change</li>
+              <li>• <strong>Scheduled Sync:</strong> Recurrence trigger to sync external data daily</li>
+              <li>• <strong>Document Storage:</strong> SharePoint integration for large files</li>
+              <li>• <strong>Real-time Validation:</strong> Azure Function for address/credit checks</li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Securing API Calls</h3>
+            <div className="bg-yellow-50 p-4 rounded-lg">
+              <p className="font-semibold text-gray-800 mb-2">OAuth 2.0 Best Practices:</p>
+              <ul className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>• Use client credentials flow for service-to-service</li>
+                <li>• Store credentials in Azure Key Vault (never in code)</li>
+                <li>• Implement in Power Automate or Azure Function</li>
+                <li>• Never expose API keys in JavaScript</li>
+                <li>• Use managed identities where possible</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Section 6 - ALM */}
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">6. ALM & Deployment</h2>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3">Environment Strategy</h3>
+            <div className="bg-gray-50 p-4 rounded-lg mb-4">
+              <ul className="text-gray-700 space-y-1 ml-6">
+                <li>• <strong>DEV:</strong> Development environment (individual dev sandboxes)</li>
+                <li>• <strong>TEST:</strong> Integration testing</li>
+                <li>• <strong>UAT:</strong> User acceptance testing</li>
+                <li>• <strong>PROD:</strong> Production (live environment)</li>
+              </ul>
+            </div>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Solution Components</h3>
+            <p className="text-gray-700 mb-2"><strong>Included in Solutions:</strong></p>
+            <ul className="text-sm text-gray-700 ml-6 space-y-1">
+              <li>• Website record, Web pages, Web templates</li>
+              <li>• Lists, Forms configurations</li>
+              <li>• Table permissions, Web roles</li>
+              <li>• Content snippets</li>
+            </ul>
+            <p className="text-gray-700 mb-2 mt-3"><strong>NOT in Solutions:</strong></p>
+            <ul className="text-sm text-gray-700 ml-6 space-y-1">
+              <li>• Actual content (blog posts, KB articles)</li>
+              <li>• Domain bindings</li>
+              <li>• Some site settings (manual migration needed)</li>
+            </ul>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Deployment Process</h3>
+            <div className="bg-green-50 p-4 rounded-lg mb-4">
+              <ol className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>1. Develop in DEV environment</li>
+                <li>2. Add components to solution</li>
+                <li>3. Export as <strong>managed solution</strong></li>
+                <li>4. Import to TEST → Validate</li>
+                <li>5. Import to UAT → User testing</li>
+                <li>6. Import to PROD → Go live</li>
+                <li>7. Clear portal cache (restart portal)</li>
+                <li>8. Verify table permissions and web roles</li>
+              </ol>
+            </div>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Deployment Checklist</h3>
+            <div className="grid grid-cols-2 gap-4">
+              <div className="bg-blue-50 p-3 rounded-lg">
+                <p className="font-semibold text-sm text-gray-800 mb-2">Pre-Deployment:</p>
+                <ul className="text-xs text-gray-700 ml-4 space-y-1">
+                  <li>☐ Run solution checker</li>
+                  <li>☐ Backup target environment</li>
+                  <li>☐ Test in lower environment</li>
+                  <li>☐ Document changes</li>
+                </ul>
+              </div>
+              <div className="bg-blue-50 p-3 rounded-lg">
+                <p className="font-semibold text-sm text-gray-800 mb-2">Post-Deployment:</p>
+                <ul className="text-xs text-gray-700 ml-4 space-y-1">
+                  <li>☐ Clear portal cache</li>
+                  <li>☐ Test critical pages</li>
+                  <li>☐ Verify security</li>
+                  <li>☐ Monitor error logs</li>
+                </ul>
+              </div>
+            </div>
+
+            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Version Control Best Practices</h3>
+            <ul className="text-sm text-gray-700 ml-6 space-y-1">
+              <li>• Export and unpack solutions for version control</li>
+              <li>• Use Git branches: main, develop, feature/*, bugfix/*</li>
+              <li>• Never commit API keys or credentials</li>
+              <li>• Mandatory PR reviews for main branch</li>
+              <li>• Tag releases (v1.0, v1.1, etc.)</li>
+            </ul>
+          </div>
+
+          {/* Section 7 - Interview Questions */}
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">7. Top 20 Interview Questions</h2>
+
+            <div className="space-y-6">
+              {/* Q1-10 */}
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q1: What are the authentication providers in Power Pages?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Azure AD (Entra ID), Azure AD B2C, Local Authentication, OAuth 2.0 (Google, Facebook, LinkedIn), SAML 2.0 for custom enterprise providers.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q2: Difference between Web Roles and Table Permissions?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Web Roles define WHO (groups like Customer, Partner). Table Permissions define WHAT data each role can access. Web Roles are assigned to users; Table Permissions are assigned to Web Roles. One user can have multiple roles with cumulative permissions.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q3: What are the 5 Table Permission scopes?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> 1. Global (all records), 2. Contact (user's contact = lookup), 3. Account (user's account = lookup), 4. Parent (child records based on parent), 5. Self (only own contact record)</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q4: How does record-level security work?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> User requests record → Portal checks authentication → Gets user's Web Roles → Retrieves Table Permissions → Evaluates scope → Applies filter to Dataverse query → If match, display; else access denied. Server-side enforcement.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q5: What is Liquid and its use?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Server-side template language for dynamic content. Used for displaying user data, conditional rendering, loops, date formatting. Processes before HTML rendering.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q6: Three ways to call external APIs?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> 1. Power Automate (async, easy), 2. Azure Functions (real-time), 3. Plugin (server-side, C#). Use Power Automate for simple, Azure Functions for real-time needs.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q7: Basic Forms vs Advanced Forms?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Basic = Single-step CRUD. Advanced = Multi-step wizard with conditional navigation. Use Advanced for complex data collection.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q8: How to deploy from DEV to PROD?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Add to solution → Export as managed → Import to TEST → UAT → PROD → Clear cache → Verify security. Some site settings need manual migration.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q9: What are Content Snippets?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Reusable text blocks stored in Dataverse. Support HTML and Liquid. Used for headers, footers, messages. Editable by non-technical users.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q10: How to secure API calls?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Use OAuth 2.0 client credentials flow. Store credentials in Key Vault. Implement in Power Automate or Azure Function. Never expose in JavaScript. Use managed identities.</p>
+              </div>
+
+              {/* Q11-20 */}
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q11: User sees only THEIR cases - how?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Table Permission: Table=Case, Scope=Contact, Relationship=customerid_contact, Privileges=Read/Write. User sees cases where customerid = their Contact ID.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q12: Company users see all company cases - how?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Use Account scope. Relationship: customerid_account → Contact.parentcustomerid. All users with same parent account see shared cases.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q13: Real-time address validation - how?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Azure Function with address API → JavaScript calls on field blur → Function validates → Return result → Show error/success → Block if invalid.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q14: Immediate email on form submit - how?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Power Automate (1-2 min delay) or Azure Function (instant via SendGrid).</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q15: Secure file uploads - how?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Enable on form → Configure max size → Table Permissions → Validate file types → Virus scan via Azure Function. Files in Dataverse or Azure Blob.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q16: Different API URLs per environment - how?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Site Settings (ExternalAPI/BaseURL, different per env) or Environment Variables in Power Automate.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q17: Search across multiple tables - how?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Built-in portal search (enable in settings) or custom search (JavaScript → Web API → FetchXML → Display results).</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q18: Manage frequent role changes - how?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Web Roles in Dataverse → Assign via N:N at runtime → Power Automate auto-assign based on criteria → No deployment needed.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q19: Portal slow - how to optimize?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Enable output caching → Optimize Liquid queries → Pagination → Compress images → CDN for static files → Entity caching → Optimize views.</p>
+              </div>
+
+              <div className="bg-gray-50 p-4 rounded-lg">
+                <p className="font-semibold text-gray-800 mb-2">Q20: Multi-language support - how?</p>
+                <p className="text-sm text-gray-700"><strong>Answer:</strong> Enable portal languages → Content snippets per language (welcome-en, welcome-es) → Check user.language in Liquid → Display appropriate snippet.</p>
+              </div>
+            </div>
+          </div>
+
+          {/* Section 8 - Real Project */}
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">8. Real-Time Project Example</h2>
+
+            <div className="bg-green-50 p-4 rounded-lg mb-6">
+              <h3 className="text-xl font-bold text-gray-800 mb-2">B2B Vendor Management Portal</h3>
+              <p className="text-sm text-gray-700"><strong>Client:</strong> Manufacturing company with 500+ vendors</p>
+            </div>
+
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">Business Requirement</h3>
+            <ul className="text-sm text-gray-700 ml-6 space-y-1 mb-4">
+              <li>• Manual vendor onboarding (time-consuming)</li>
+              <li>• PO management via email (no visibility)</li>
+              <li>• Invoice tracking issues</li>
+              <li>• Need self-service portal</li>
+            </ul>
+
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">Solution Delivered</h3>
+            <ul className="text-sm text-gray-700 ml-6 space-y-1 mb-4">
+              <li>• Self-service vendor registration</li>
+              <li>• Real-time PO visibility</li>
+              <li>• Invoice submission and tracking</li>
+              <li>• Document repository</li>
+              <li>• Tiered access by performance</li>
+            </ul>
+
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">Security Implementation</h3>
+            <div className="bg-yellow-50 p-4 rounded-lg mb-4">
+              <p className="font-semibold text-gray-800 mb-2">Web Roles:</p>
+              <ul className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>• Vendor-Basic: View orders, submit invoices</li>
+                <li>• Vendor-Premium: + Performance dashboard</li>
+                <li>• Vendor-Admin: + Team management</li>
+              </ul>
+              
+              <p className="font-semibold text-gray-800 mb-2 mt-3">Table Permissions:</p>
+              <ul className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>• POs: Account scope, all roles, Read only</li>
+                <li>• Invoices: Account scope, all roles, Read + Create</li>
+                <li>• Performance: Account scope, Premium/Admin only</li>
+                <li>• Team: Account scope, Admin only, Full access</li>
+              </ul>
+            </div>
+
+            <h3 className="text-lg font-semibold text-gray-800 mb-3">Integration Used</h3>
+            <div className="space-y-3">
+              <div className="bg-blue-50 p-3 rounded-lg">
+                <p className="font-semibold text-sm text-gray-800">SAP ERP Integration</p>
+                <p className="text-xs text-gray-700 mt-1">Power Automate with SAP connector, every 2 hours, PO sync</p>
+              </div>
+              
+              <div className="bg-blue-50 p-3 rounded-lg">
+                <p className="font-semibold text-sm text-gray-800">Invoice Processing</p>
+                <p className="text-xs text-gray-700 mt-1">Azure Function validates (PO exists, amounts match), posts to accounting API</p>
+              </div>
+              
+              <div className="bg-blue-50 p-3 rounded-lg">
+                <p className="font-semibold text-sm text-gray-800">Email Notifications</p>
+                <p className="text-xs text-gray-700 mt-1">New PO → Email vendor | Invoice submitted → Email procurement</p>
+              </div>
+            </div>
+
+            <h3 className="text-lg font-semibold text-gray-800 mb-3 mt-6">Challenges & Solutions</h3>
+            <div className="space-y-2">
+              <div className="bg-red-50 p-3 rounded-lg">
+                <p className="font-semibold text-sm text-gray-800">Challenge: 10,000+ POs performance</p>
+                <p className="text-xs text-gray-700 mt-1">Solution: Pagination (20/page), indexed fields, output caching</p>
+              </div>
+              
+              <div className="bg-red-50 p-3 rounded-lg">
+                <p className="font-semibold text-sm text-gray-800">Challenge: Real-time validation</p>
+                <p className="text-xs text-gray-700 mt-1">Solution: Azure Function on form submission</p>
+              </div>
+            </div>
+
+            <h3 className="text-lg font-semibold text-gray-800 mb-3 mt-6">Results</h3>
+            <div className="bg-green-50 p-4 rounded-lg">
+              <ul className="text-sm text-gray-700 ml-6 space-y-1">
+                <li>✅ 500+ vendors onboarded</li>
+                <li>✅ 95% reduction in email inquiries</li>
+                <li>✅ Invoice processing: 5 days → 2 days</li>
+                <li>✅ Page load: 4.5s → 1.8s (60% faster)</li>
+                <li>✅ 99.2% uptime</li>
+                <li>✅ Users: 50 → 200 (4x)</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Quick Reference */}
+          <div className="mb-10">
+            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">Quick Reference Card</h2>
+
+            <div className="bg-blue-50 p-4 rounded-lg mb-4">
+              <h3 className="font-bold text-gray-800 mb-3">Must-Know Concepts</h3>
+              <ul className="text-sm text-gray-700 space-y-1 ml-6">
+                <li>✓ Table Permission Scopes: Global, Contact, Account, Parent, Self</li>
+                <li>✓ Web Roles = WHO, Table Permissions = WHAT</li>
+                <li>✓ Authentication: Azure AD, B2C, Local, OAuth 2.0, SAML</li>
+                <li>✓ Integration: Power Automate (async), Azure Functions (real-time)</li>
+                <li>✓ Liquid: Server-side templating</li>
+                <li>✓ Deployment: Managed solutions for PROD</li>
+                <li>✓ Security: Record-level via table permissions</li>
+              </ul>
+            </div>
+
+            <div className="bg-yellow-50 p-4 rounded-lg mb-4">
+              <h3 className="font-bold text-gray-800 mb-3">Interview Tips</h3>
+              <ul className="text-sm text-gray-700 space-y-1 ml-6">
+                <li>• Always mention security first</li>
+                <li>• Give real-world examples</li>
+                <li>• Explain trade-offs</li>
+                <li>• Discuss performance</li>
+                <li>• Mention ALM practices</li>
+                <li>• Be ready to draw diagrams</li>
+              </ul>
+            </div>
+
+            <div className="bg-green-50 p-4 rounded-lg">
+              <h3 className="font-bold text-gray-800 mb-3">Common Scenarios</h3>
+              <ul className="text-sm text-gray-700 space-y-2 ml-6">
+                <li><strong>User sees only their records:</strong> Contact scope</li>
+                <li><strong>Company shares records:</strong> Account scope</li>
+                <li><strong>Child records:</strong> Parent scope</li>
+                <li><strong>Real-time validation:</strong> Azure Functions</li>
+                <li><strong>Async integration:</strong> Power Automate</li>
+              </ul>
+            </div>
+          </div>
+
+          {/* Footer */}
+          <div className="text-center mt-12 pt-8 border-t-2 border-gray-300">
+            <p className="text-gray-600 font-semibold">End of Guide</p>
+            <p className="text-sm text-gray-500 mt-2">Best of Luck with Your Interview!</p>
+            <p className="text-xs text-gray-400 mt-4">Power Pages Interview Preparation Guide | 3+ Years Experience</p>
+          </div>
+
+        </div>
+      </div>
+    </div>
+  );
+};
+
+export default PowerPagesPDF;
