@@ -1,689 +1,1117 @@
-import React from 'react';
-import { FileDown } from 'lucide-react';
-
-const PowerPagesPDF = () => {
-  const downloadPDF = () => {
-    const element = document.getElementById('pdf-content');
-    const opt = {
-      margin: 0.5,
-      filename: 'Power_Pages_Interview_Guide_3YRS.pdf',
-      image: { type: 'jpeg', quality: 0.98 },
-      html2canvas: { scale: 2, useCORS: true },
-      jsPDF: { unit: 'in', format: 'letter', orientation: 'portrait' }
-    };
-    
-    // Check if html2pdf is already loaded
-    if (window.html2pdf) {
-      window.html2pdf().set(opt).from(element).save();
-    } else {
-      // Load html2pdf library
-      const script = document.createElement('script');
-      script.src = 'https://cdnjs.cloudflare.com/ajax/libs/html2pdf.js/0.10.1/html2pdf.bundle.min.js';
-      script.onload = function() {
-        window.html2pdf().set(opt).from(element).save();
-      };
-      document.body.appendChild(script);
-    }
-  };
-
-  return (
-    <div className="min-h-screen bg-gray-50 p-4">
-      <div className="max-w-4xl mx-auto">
-        <div className="bg-white rounded-lg shadow-lg p-6 mb-4">
-          <div className="flex justify-between items-center">
-            <h1 className="text-2xl font-bold text-blue-900">Power Pages Interview Guide</h1>
-            <button 
-              onClick={downloadPDF}
-              className="flex items-center gap-2 bg-blue-600 text-white px-6 py-3 rounded-lg hover:bg-blue-700 transition"
-            >
-              <FileDown size={20} />
-              Download PDF
-            </button>
-          </div>
-          <p className="text-gray-600 mt-2">For 3+ Years Experience | Solution Architect</p>
-        </div>
-
-        <div id="pdf-content" className="bg-white rounded-lg shadow-lg p-8">
-          
-          {/* Cover Page */}
-          <div className="text-center mb-12 pb-12 border-b-4 border-blue-600">
-            <h1 className="text-4xl font-bold text-blue-900 mb-4">Power Pages</h1>
-            <h2 className="text-2xl font-semibold text-gray-700 mb-2">Interview Preparation Guide</h2>
-            <p className="text-xl text-gray-600 mb-8">For 3+ Years Experience</p>
-            <div className="bg-blue-50 p-6 rounded-lg inline-block">
-              <p className="text-lg font-semibold text-blue-800">Solution Architect Level</p>
-              <p className="text-gray-600 mt-2">Comprehensive Coverage | Interview-Focused</p>
-            </div>
-          </div>
-
-          {/* Table of Contents */}
-          <div className="mb-12 pb-8 border-b-2 border-gray-200">
-            <h2 className="text-2xl font-bold text-blue-900 mb-6">Table of Contents</h2>
-            <div className="space-y-2 text-gray-700">
-              <p className="font-semibold">1. Introduction to Power Pages</p>
-              <p className="font-semibold">2. Core Components</p>
-              <p className="font-semibold">3. Security (Interview Critical)</p>
-              <p className="font-semibold">4. Customization & Development</p>
-              <p className="font-semibold">5. Integration Approaches</p>
-              <p className="font-semibold">6. ALM & Deployment</p>
-              <p className="font-semibold">7. Top 20 Interview Questions</p>
-              <p className="font-semibold">8. Real-Time Project Example</p>
-            </div>
-          </div>
-
-          {/* Section 1 */}
-          <div className="mb-10">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">1. Introduction to Power Pages</h2>
-            
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">What is Power Pages?</h3>
-            <ul className="space-y-2 text-gray-700 ml-6">
-              <li>• Low-code platform for building external-facing websites</li>
-              <li>• Connected directly to Microsoft Dataverse</li>
-              <li>• Enables secure data access for external users (customers, partners, vendors)</li>
-              <li>• Part of Microsoft Power Platform ecosystem</li>
-            </ul>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Architecture Overview</h3>
-            <div className="bg-gray-50 p-4 rounded-lg mb-4">
-              <p className="text-sm text-gray-700 font-mono">
-                Power Pages Website (Frontend)<br/>
-                ↓<br/>
-                Authentication Layer<br/>
-                ↓<br/>
-                Web Roles & Table Permissions<br/>
-                ↓<br/>
-                Microsoft Dataverse (Backend)
-              </p>
-            </div>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Power Pages vs Power Apps Portal</h3>
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <p className="text-gray-700"><strong>Key Point:</strong> Power Apps Portal is the OLD name. Power Pages is the NEW branding (same technology, rebranded in 2022).</p>
-              <ul className="mt-2 space-y-1 text-gray-700 ml-6">
-                <li>• Same licensing model (per authenticated user or capacity)</li>
-                <li>• Modern design studio in Power Pages</li>
-                <li>• Legacy portal management app still available</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Section 2 */}
-          <div className="mb-10">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">2. Core Components</h2>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Websites</h3>
-            <ul className="space-y-1 text-gray-700 ml-6">
-              <li>• Container for all portal content</li>
-              <li>• Each website has unique Website ID and binding</li>
-              <li>• Multiple websites possible per environment</li>
-            </ul>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Tables & Forms</h3>
-            <p className="text-gray-700 mb-2"><strong>Basic Forms:</strong></p>
-            <ul className="space-y-1 text-gray-700 ml-6">
-              <li>• Single record CRUD operations</li>
-              <li>• Modes: Insert, Edit, ReadOnly</li>
-              <li>• Configuration: Success redirect, validation, file uploads</li>
-            </ul>
-            <p className="text-gray-700 mb-2 mt-3"><strong>Advanced Forms:</strong></p>
-            <ul className="space-y-1 text-gray-700 ml-6">
-              <li>• Multi-step wizard-style data collection</li>
-              <li>• Conditional navigation between steps</li>
-              <li>• Example: Loan application (Personal → Financial → Documents)</li>
-            </ul>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Lists</h3>
-            <ul className="space-y-1 text-gray-700 ml-6">
-              <li>• Grid view of Dataverse records</li>
-              <li>• Based on Dataverse views (system or custom)</li>
-              <li>• Features: Search, filter, pagination, actions (Create/Edit/Delete)</li>
-              <li>• Respects table permissions (automatic security)</li>
-            </ul>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Web Roles</h3>
-            <ul className="space-y-1 text-gray-700 ml-6">
-              <li>• Security containers grouping users</li>
-              <li>• Define WHO can access what</li>
-              <li>• Assigned via N:N relationship with Contact</li>
-              <li>• Types: Authenticated Users, Anonymous Users, Custom Roles</li>
-              <li>• One user can have multiple roles (cumulative permissions)</li>
-            </ul>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Table Permissions (Critical)</h3>
-            <div className="bg-yellow-50 p-4 rounded-lg mb-3">
-              <p className="font-semibold text-gray-800 mb-2">5 Permission Scopes:</p>
-              <ul className="space-y-1 text-gray-700 ml-6">
-                <li><strong>1. Global:</strong> All records in table (Admin access)</li>
-                <li><strong>2. Contact:</strong> Records where user's contact = lookup field</li>
-                <li><strong>3. Account:</strong> Records where user's account = account lookup</li>
-                <li><strong>4. Parent:</strong> Child records based on parent record access</li>
-                <li><strong>5. Self:</strong> Only user's own contact record</li>
-              </ul>
-            </div>
-            <p className="text-gray-700"><strong>Privilege Types:</strong> Create, Read, Write, Delete, Append, Append To</p>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Authentication Providers</h3>
-            <ul className="space-y-1 text-gray-700 ml-6">
-              <li>• Azure AD (Entra ID) - Enterprise SSO</li>
-              <li>• Azure AD B2C - Social + enterprise identities</li>
-              <li>• Local Authentication - Username/password in Dataverse</li>
-              <li>• OAuth 2.0 - Google, Facebook, LinkedIn, Microsoft</li>
-              <li>• SAML 2.0 - Custom enterprise providers</li>
-            </ul>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Site Settings</h3>
-            <ul className="space-y-1 text-gray-700 ml-6">
-              <li>• Key-value pairs for configuration</li>
-              <li>• Control behavior without code changes</li>
-              <li>• Examples: Authentication/Registration/Enabled, Search/Enabled</li>
-            </ul>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Content Snippets</h3>
-            <ul className="space-y-1 text-gray-700 ml-6">
-              <li>• Reusable text blocks across pages</li>
-              <li>• Support HTML and Liquid syntax</li>
-              <li>• Editable by non-technical content authors</li>
-            </ul>
-          </div>
-
-          {/* Section 3 - Security */}
-          <div className="mb-10">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">3. Security (Interview Critical)</h2>
-
-            <div className="bg-red-50 p-4 rounded-lg mb-6">
-              <p className="font-bold text-red-800">⚠️ Most Important Section for Interviews</p>
-              <p className="text-gray-700 mt-1">Deep understanding of security is essential for Solution Architect role</p>
-            </div>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3">Table Permission Examples</h3>
-
-            <div className="bg-gray-50 p-4 rounded-lg mb-4">
-              <p className="font-semibold text-gray-800 mb-2">Example 1: Contact Scope (Most Common)</p>
-              <p className="text-sm text-gray-700 mb-1"><strong>Scenario:</strong> User sees only THEIR cases</p>
-              <ul className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>• Table: Case</li>
-                <li>• Scope: Contact</li>
-                <li>• Relationship: customerid_contact</li>
-                <li>• Privileges: Read ✓, Write ✓, Delete ✗</li>
-                <li>• Result: User sees cases where customerid = their Contact ID</li>
-              </ul>
-            </div>
-
-            <div className="bg-gray-50 p-4 rounded-lg mb-4">
-              <p className="font-semibold text-gray-800 mb-2">Example 2: Account Scope</p>
-              <p className="text-sm text-gray-700 mb-1"><strong>Scenario:</strong> User sees ALL cases for their company</p>
-              <ul className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>• Table: Case</li>
-                <li>• Scope: Account</li>
-                <li>• Relationship: customerid_account → Contact.parentcustomerid</li>
-                <li>• Result: All users from same company see shared cases</li>
-              </ul>
-            </div>
-
-            <div className="bg-gray-50 p-4 rounded-lg mb-4">
-              <p className="font-semibold text-gray-800 mb-2">Example 3: Parent Scope</p>
-              <p className="text-sm text-gray-700 mb-1"><strong>Scenario:</strong> User can add notes only on accessible cases</p>
-              <ul className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>• Table: Annotation (Notes)</li>
-                <li>• Scope: Parent</li>
-                <li>• Parent Relationship: Case (objectid_incident)</li>
-                <li>• Privileges: Read ✓, Create ✓</li>
-                <li>• Result: Notes visible only on cases user can already access</li>
-              </ul>
-            </div>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Record-Level Security Flow</h3>
-            <div className="bg-blue-50 p-4 rounded-lg">
-              <ol className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>1. User requests a Case record (ID = 123)</li>
-                <li>2. Portal checks: Is user authenticated? → Yes</li>
-                <li>3. Retrieves user's Web Roles → ["Customer", "Premium"]</li>
-                <li>4. Gets Table Permissions for Case + these roles</li>
-                <li>5. Evaluates scope conditions (Contact/Account/Parent)</li>
-                <li>6. Applies filter to Dataverse query</li>
-                <li>7. If record matches → Display | If not → Access Denied</li>
-                <li>8. Security enforced server-side (cannot be bypassed)</li>
-              </ol>
-            </div>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Real-World Security Scenario</h3>
-            <div className="bg-green-50 p-4 rounded-lg">
-              <p className="font-semibold text-gray-800 mb-2">Multi-Tier Vendor Portal</p>
-              <p className="text-sm text-gray-700 mb-2"><strong>Web Roles:</strong></p>
-              <ul className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>• Vendor-Basic: View own orders, submit invoices</li>
-                <li>• Vendor-Premium: + Access to forecasts, priority support</li>
-                <li>• Vendor-Admin: + Manage team members</li>
-              </ul>
-              <p className="text-sm text-gray-700 mb-2 mt-3"><strong>Implementation:</strong></p>
-              <ul className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>• Purchase Orders: Account scope (all roles, Read only)</li>
-                <li>• Forecasts: Account scope (Premium/Admin only)</li>
-                <li>• Team Contacts: Account scope (Admin only, Create/Edit)</li>
-                <li>• Page Access: /forecasts → Premium/Admin only</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Section 4 - Customization */}
-          <div className="mb-10">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">4. Customization & Development</h2>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3">Liquid Templates</h3>
-            <ul className="space-y-1 text-gray-700 ml-6 mb-3">
-              <li>• Server-side template language (by Shopify)</li>
-              <li>• Processes before HTML rendering</li>
-              <li>• Access: user context, Dataverse data, request parameters</li>
-            </ul>
-            
-            <p className="text-gray-700 mb-2"><strong>Common Filters:</strong> date, upcase, downcase, default, split, join</p>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">JavaScript Usage</h3>
-            <ul className="space-y-1 text-gray-700 ml-6 mb-3">
-              <li>• Place in Content Snippets or Web Templates</li>
-              <li>• jQuery included by default</li>
-              <li>• Use for form validation, dynamic UI, API calls</li>
-            </ul>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Web API Access</h3>
-            <ul className="space-y-1 text-gray-700 ml-6 mb-3">
-              <li>• Direct access to Dataverse via REST API</li>
-              <li>• Respects table permissions automatically</li>
-              <li>• Use for AJAX operations</li>
-            </ul>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Web Templates</h3>
-            <ul className="space-y-1 text-gray-700 ml-6">
-              <li>• Reusable page layouts (HTML + Liquid)</li>
-              <li>• Structure: Header → Content → Footer</li>
-              <li>• Can include other templates (partials)</li>
-            </ul>
-          </div>
-
-          {/* Section 5 - Integration */}
-          <div className="mb-10">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">5. Integration Approaches</h2>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3">Three Ways to Call External APIs</h3>
-
-            <div className="bg-blue-50 p-4 rounded-lg mb-4">
-              <p className="font-semibold text-gray-800 mb-2">Approach 1: Power Automate (Recommended)</p>
-              <ul className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>• <strong>Best For:</strong> Asynchronous operations, simple integrations</li>
-                <li>• <strong>Flow:</strong> Form submit → Dataverse record → Power Automate triggers → Call API → Update record</li>
-                <li>• <strong>Example:</strong> Submit support ticket → Create in ServiceNow</li>
-                <li>• <strong>Pros:</strong> No code, built-in connectors, easy maintenance</li>
-                <li>• <strong>Cons:</strong> Not real-time (1-2 min delay)</li>
-              </ul>
-            </div>
-
-            <div className="bg-blue-50 p-4 rounded-lg mb-4">
-              <p className="font-semibold text-gray-800 mb-2">Approach 2: Azure Functions</p>
-              <ul className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>• <strong>Best For:</strong> Real-time response, complex logic</li>
-                <li>• <strong>Flow:</strong> JavaScript → HTTPS POST → Azure Function → External API → Response to portal</li>
-                <li>• <strong>Example:</strong> Credit score check during registration</li>
-                <li>• <strong>Pros:</strong> Real-time, full control, high performance</li>
-                <li>• <strong>Cons:</strong> Requires coding, additional Azure resource</li>
-              </ul>
-            </div>
-
-            <div className="bg-blue-50 p-4 rounded-lg mb-4">
-              <p className="font-semibold text-gray-800 mb-2">Approach 3: Dataverse Plugin</p>
-              <ul className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>• <strong>Best For:</strong> Complex server-side business logic</li>
-                <li>• <strong>Flow:</strong> Form submit → Record created → Plugin executes → API call → Update record</li>
-                <li>• <strong>Example:</strong> Auto-create ticket in external system on case creation</li>
-                <li>• <strong>Pros:</strong> Server-side, secure, no client exposure</li>
-                <li>• <strong>Cons:</strong> .NET development required</li>
-              </ul>
-            </div>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Common Integration Patterns</h3>
-            <ul className="space-y-2 text-gray-700 ml-6">
-              <li>• <strong>Email Notifications:</strong> Power Automate triggered on status change</li>
-              <li>• <strong>Scheduled Sync:</strong> Recurrence trigger to sync external data daily</li>
-              <li>• <strong>Document Storage:</strong> SharePoint integration for large files</li>
-              <li>• <strong>Real-time Validation:</strong> Azure Function for address/credit checks</li>
-            </ul>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Securing API Calls</h3>
-            <div className="bg-yellow-50 p-4 rounded-lg">
-              <p className="font-semibold text-gray-800 mb-2">OAuth 2.0 Best Practices:</p>
-              <ul className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>• Use client credentials flow for service-to-service</li>
-                <li>• Store credentials in Azure Key Vault (never in code)</li>
-                <li>• Implement in Power Automate or Azure Function</li>
-                <li>• Never expose API keys in JavaScript</li>
-                <li>• Use managed identities where possible</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Section 6 - ALM */}
-          <div className="mb-10">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">6. ALM & Deployment</h2>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3">Environment Strategy</h3>
-            <div className="bg-gray-50 p-4 rounded-lg mb-4">
-              <ul className="text-gray-700 space-y-1 ml-6">
-                <li>• <strong>DEV:</strong> Development environment (individual dev sandboxes)</li>
-                <li>• <strong>TEST:</strong> Integration testing</li>
-                <li>• <strong>UAT:</strong> User acceptance testing</li>
-                <li>• <strong>PROD:</strong> Production (live environment)</li>
-              </ul>
-            </div>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Solution Components</h3>
-            <p className="text-gray-700 mb-2"><strong>Included in Solutions:</strong></p>
-            <ul className="text-sm text-gray-700 ml-6 space-y-1">
-              <li>• Website record, Web pages, Web templates</li>
-              <li>• Lists, Forms configurations</li>
-              <li>• Table permissions, Web roles</li>
-              <li>• Content snippets</li>
-            </ul>
-            <p className="text-gray-700 mb-2 mt-3"><strong>NOT in Solutions:</strong></p>
-            <ul className="text-sm text-gray-700 ml-6 space-y-1">
-              <li>• Actual content (blog posts, KB articles)</li>
-              <li>• Domain bindings</li>
-              <li>• Some site settings (manual migration needed)</li>
-            </ul>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Deployment Process</h3>
-            <div className="bg-green-50 p-4 rounded-lg mb-4">
-              <ol className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>1. Develop in DEV environment</li>
-                <li>2. Add components to solution</li>
-                <li>3. Export as <strong>managed solution</strong></li>
-                <li>4. Import to TEST → Validate</li>
-                <li>5. Import to UAT → User testing</li>
-                <li>6. Import to PROD → Go live</li>
-                <li>7. Clear portal cache (restart portal)</li>
-                <li>8. Verify table permissions and web roles</li>
-              </ol>
-            </div>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Deployment Checklist</h3>
-            <div className="grid grid-cols-2 gap-4">
-              <div className="bg-blue-50 p-3 rounded-lg">
-                <p className="font-semibold text-sm text-gray-800 mb-2">Pre-Deployment:</p>
-                <ul className="text-xs text-gray-700 ml-4 space-y-1">
-                  <li>☐ Run solution checker</li>
-                  <li>☐ Backup target environment</li>
-                  <li>☐ Test in lower environment</li>
-                  <li>☐ Document changes</li>
-                </ul>
-              </div>
-              <div className="bg-blue-50 p-3 rounded-lg">
-                <p className="font-semibold text-sm text-gray-800 mb-2">Post-Deployment:</p>
-                <ul className="text-xs text-gray-700 ml-4 space-y-1">
-                  <li>☐ Clear portal cache</li>
-                  <li>☐ Test critical pages</li>
-                  <li>☐ Verify security</li>
-                  <li>☐ Monitor error logs</li>
-                </ul>
-              </div>
-            </div>
-
-            <h3 className="text-xl font-semibold text-gray-800 mb-3 mt-6">Version Control Best Practices</h3>
-            <ul className="text-sm text-gray-700 ml-6 space-y-1">
-              <li>• Export and unpack solutions for version control</li>
-              <li>• Use Git branches: main, develop, feature/*, bugfix/*</li>
-              <li>• Never commit API keys or credentials</li>
-              <li>• Mandatory PR reviews for main branch</li>
-              <li>• Tag releases (v1.0, v1.1, etc.)</li>
-            </ul>
-          </div>
-
-          {/* Section 7 - Interview Questions */}
-          <div className="mb-10">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">7. Top 20 Interview Questions</h2>
-
-            <div className="space-y-6">
-              {/* Q1-10 */}
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q1: What are the authentication providers in Power Pages?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Azure AD (Entra ID), Azure AD B2C, Local Authentication, OAuth 2.0 (Google, Facebook, LinkedIn), SAML 2.0 for custom enterprise providers.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q2: Difference between Web Roles and Table Permissions?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Web Roles define WHO (groups like Customer, Partner). Table Permissions define WHAT data each role can access. Web Roles are assigned to users; Table Permissions are assigned to Web Roles. One user can have multiple roles with cumulative permissions.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q3: What are the 5 Table Permission scopes?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> 1. Global (all records), 2. Contact (user's contact = lookup), 3. Account (user's account = lookup), 4. Parent (child records based on parent), 5. Self (only own contact record)</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q4: How does record-level security work?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> User requests record → Portal checks authentication → Gets user's Web Roles → Retrieves Table Permissions → Evaluates scope → Applies filter to Dataverse query → If match, display; else access denied. Server-side enforcement.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q5: What is Liquid and its use?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Server-side template language for dynamic content. Used for displaying user data, conditional rendering, loops, date formatting. Processes before HTML rendering.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q6: Three ways to call external APIs?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> 1. Power Automate (async, easy), 2. Azure Functions (real-time), 3. Plugin (server-side, C#). Use Power Automate for simple, Azure Functions for real-time needs.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q7: Basic Forms vs Advanced Forms?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Basic = Single-step CRUD. Advanced = Multi-step wizard with conditional navigation. Use Advanced for complex data collection.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q8: How to deploy from DEV to PROD?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Add to solution → Export as managed → Import to TEST → UAT → PROD → Clear cache → Verify security. Some site settings need manual migration.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q9: What are Content Snippets?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Reusable text blocks stored in Dataverse. Support HTML and Liquid. Used for headers, footers, messages. Editable by non-technical users.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q10: How to secure API calls?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Use OAuth 2.0 client credentials flow. Store credentials in Key Vault. Implement in Power Automate or Azure Function. Never expose in JavaScript. Use managed identities.</p>
-              </div>
-
-              {/* Q11-20 */}
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q11: User sees only THEIR cases - how?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Table Permission: Table=Case, Scope=Contact, Relationship=customerid_contact, Privileges=Read/Write. User sees cases where customerid = their Contact ID.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q12: Company users see all company cases - how?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Use Account scope. Relationship: customerid_account → Contact.parentcustomerid. All users with same parent account see shared cases.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q13: Real-time address validation - how?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Azure Function with address API → JavaScript calls on field blur → Function validates → Return result → Show error/success → Block if invalid.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q14: Immediate email on form submit - how?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Power Automate (1-2 min delay) or Azure Function (instant via SendGrid).</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q15: Secure file uploads - how?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Enable on form → Configure max size → Table Permissions → Validate file types → Virus scan via Azure Function. Files in Dataverse or Azure Blob.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q16: Different API URLs per environment - how?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Site Settings (ExternalAPI/BaseURL, different per env) or Environment Variables in Power Automate.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q17: Search across multiple tables - how?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Built-in portal search (enable in settings) or custom search (JavaScript → Web API → FetchXML → Display results).</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q18: Manage frequent role changes - how?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Web Roles in Dataverse → Assign via N:N at runtime → Power Automate auto-assign based on criteria → No deployment needed.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q19: Portal slow - how to optimize?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Enable output caching → Optimize Liquid queries → Pagination → Compress images → CDN for static files → Entity caching → Optimize views.</p>
-              </div>
-
-              <div className="bg-gray-50 p-4 rounded-lg">
-                <p className="font-semibold text-gray-800 mb-2">Q20: Multi-language support - how?</p>
-                <p className="text-sm text-gray-700"><strong>Answer:</strong> Enable portal languages → Content snippets per language (welcome-en, welcome-es) → Check user.language in Liquid → Display appropriate snippet.</p>
-              </div>
-            </div>
-          </div>
-
-          {/* Section 8 - Real Project */}
-          <div className="mb-10">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">8. Real-Time Project Example</h2>
-
-            <div className="bg-green-50 p-4 rounded-lg mb-6">
-              <h3 className="text-xl font-bold text-gray-800 mb-2">B2B Vendor Management Portal</h3>
-              <p className="text-sm text-gray-700"><strong>Client:</strong> Manufacturing company with 500+ vendors</p>
-            </div>
-
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">Business Requirement</h3>
-            <ul className="text-sm text-gray-700 ml-6 space-y-1 mb-4">
-              <li>• Manual vendor onboarding (time-consuming)</li>
-              <li>• PO management via email (no visibility)</li>
-              <li>• Invoice tracking issues</li>
-              <li>• Need self-service portal</li>
-            </ul>
-
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">Solution Delivered</h3>
-            <ul className="text-sm text-gray-700 ml-6 space-y-1 mb-4">
-              <li>• Self-service vendor registration</li>
-              <li>• Real-time PO visibility</li>
-              <li>• Invoice submission and tracking</li>
-              <li>• Document repository</li>
-              <li>• Tiered access by performance</li>
-            </ul>
-
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">Security Implementation</h3>
-            <div className="bg-yellow-50 p-4 rounded-lg mb-4">
-              <p className="font-semibold text-gray-800 mb-2">Web Roles:</p>
-              <ul className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>• Vendor-Basic: View orders, submit invoices</li>
-                <li>• Vendor-Premium: + Performance dashboard</li>
-                <li>• Vendor-Admin: + Team management</li>
-              </ul>
-              
-              <p className="font-semibold text-gray-800 mb-2 mt-3">Table Permissions:</p>
-              <ul className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>• POs: Account scope, all roles, Read only</li>
-                <li>• Invoices: Account scope, all roles, Read + Create</li>
-                <li>• Performance: Account scope, Premium/Admin only</li>
-                <li>• Team: Account scope, Admin only, Full access</li>
-              </ul>
-            </div>
-
-            <h3 className="text-lg font-semibold text-gray-800 mb-3">Integration Used</h3>
-            <div className="space-y-3">
-              <div className="bg-blue-50 p-3 rounded-lg">
-                <p className="font-semibold text-sm text-gray-800">SAP ERP Integration</p>
-                <p className="text-xs text-gray-700 mt-1">Power Automate with SAP connector, every 2 hours, PO sync</p>
-              </div>
-              
-              <div className="bg-blue-50 p-3 rounded-lg">
-                <p className="font-semibold text-sm text-gray-800">Invoice Processing</p>
-                <p className="text-xs text-gray-700 mt-1">Azure Function validates (PO exists, amounts match), posts to accounting API</p>
-              </div>
-              
-              <div className="bg-blue-50 p-3 rounded-lg">
-                <p className="font-semibold text-sm text-gray-800">Email Notifications</p>
-                <p className="text-xs text-gray-700 mt-1">New PO → Email vendor | Invoice submitted → Email procurement</p>
-              </div>
-            </div>
-
-            <h3 className="text-lg font-semibold text-gray-800 mb-3 mt-6">Challenges & Solutions</h3>
-            <div className="space-y-2">
-              <div className="bg-red-50 p-3 rounded-lg">
-                <p className="font-semibold text-sm text-gray-800">Challenge: 10,000+ POs performance</p>
-                <p className="text-xs text-gray-700 mt-1">Solution: Pagination (20/page), indexed fields, output caching</p>
-              </div>
-              
-              <div className="bg-red-50 p-3 rounded-lg">
-                <p className="font-semibold text-sm text-gray-800">Challenge: Real-time validation</p>
-                <p className="text-xs text-gray-700 mt-1">Solution: Azure Function on form submission</p>
-              </div>
-            </div>
-
-            <h3 className="text-lg font-semibold text-gray-800 mb-3 mt-6">Results</h3>
-            <div className="bg-green-50 p-4 rounded-lg">
-              <ul className="text-sm text-gray-700 ml-6 space-y-1">
-                <li>✅ 500+ vendors onboarded</li>
-                <li>✅ 95% reduction in email inquiries</li>
-                <li>✅ Invoice processing: 5 days → 2 days</li>
-                <li>✅ Page load: 4.5s → 1.8s (60% faster)</li>
-                <li>✅ 99.2% uptime</li>
-                <li>✅ Users: 50 → 200 (4x)</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Quick Reference */}
-          <div className="mb-10">
-            <h2 className="text-2xl font-bold text-blue-900 mb-4 pb-2 border-b-2 border-blue-600">Quick Reference Card</h2>
-
-            <div className="bg-blue-50 p-4 rounded-lg mb-4">
-              <h3 className="font-bold text-gray-800 mb-3">Must-Know Concepts</h3>
-              <ul className="text-sm text-gray-700 space-y-1 ml-6">
-                <li>✓ Table Permission Scopes: Global, Contact, Account, Parent, Self</li>
-                <li>✓ Web Roles = WHO, Table Permissions = WHAT</li>
-                <li>✓ Authentication: Azure AD, B2C, Local, OAuth 2.0, SAML</li>
-                <li>✓ Integration: Power Automate (async), Azure Functions (real-time)</li>
-                <li>✓ Liquid: Server-side templating</li>
-                <li>✓ Deployment: Managed solutions for PROD</li>
-                <li>✓ Security: Record-level via table permissions</li>
-              </ul>
-            </div>
-
-            <div className="bg-yellow-50 p-4 rounded-lg mb-4">
-              <h3 className="font-bold text-gray-800 mb-3">Interview Tips</h3>
-              <ul className="text-sm text-gray-700 space-y-1 ml-6">
-                <li>• Always mention security first</li>
-                <li>• Give real-world examples</li>
-                <li>• Explain trade-offs</li>
-                <li>• Discuss performance</li>
-                <li>• Mention ALM practices</li>
-                <li>• Be ready to draw diagrams</li>
-              </ul>
-            </div>
-
-            <div className="bg-green-50 p-4 rounded-lg">
-              <h3 className="font-bold text-gray-800 mb-3">Common Scenarios</h3>
-              <ul className="text-sm text-gray-700 space-y-2 ml-6">
-                <li><strong>User sees only their records:</strong> Contact scope</li>
-                <li><strong>Company shares records:</strong> Account scope</li>
-                <li><strong>Child records:</strong> Parent scope</li>
-                <li><strong>Real-time validation:</strong> Azure Functions</li>
-                <li><strong>Async integration:</strong> Power Automate</li>
-              </ul>
-            </div>
-          </div>
-
-          {/* Footer */}
-          <div className="text-center mt-12 pt-8 border-t-2 border-gray-300">
-            <p className="text-gray-600 font-semibold">End of Guide</p>
-            <p className="text-sm text-gray-500 mt-2">Best of Luck with Your Interview!</p>
-            <p className="text-xs text-gray-400 mt-4">Power Pages Interview Preparation Guide | 3+ Years Experience</p>
-          </div>
-
-        </div>
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8"/>
+<meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+<title>Dataverse & Model-Driven Apps – Quick Revision Guide</title>
+<style>
+  :root {
+    --primary: #1a3c6e;
+    --accent: #0078d4;
+    --light: #e8f1fb;
+    --tip: #1e7e34;
+    --tip-bg: #d4edda;
+    --trap: #b21f1f;
+    --trap-bg: #fde8e8;
+    --warn: #856404;
+    --warn-bg: #fff3cd;
+    --example-bg: #f0f4ff;
+    --border: #d0dff0;
+    --text: #1a1a2e;
+    --muted: #555;
+    --section-bg: #f7faff;
+  }
+  * { box-sizing: border-box; margin: 0; padding: 0; }
+  body { font-family: 'Segoe UI', Arial, sans-serif; background: #eef3fb; color: var(--text); font-size: 14px; line-height: 1.65; }
+
+  /* COVER */
+  .cover {
+    background: linear-gradient(135deg, #0d2b5e 0%, #0078d4 60%, #00b4d8 100%);
+    color: white; text-align: center; padding: 60px 40px 50px;
+    page-break-after: always;
+  }
+  .cover h1 { font-size: 2.4em; font-weight: 800; letter-spacing: 1px; margin-bottom: 10px; }
+  .cover h2 { font-size: 1.2em; font-weight: 400; opacity: .85; margin-bottom: 30px; }
+  .cover .badges { display: flex; justify-content: center; gap: 12px; flex-wrap: wrap; margin-top: 20px; }
+  .cover .badge { background: rgba(255,255,255,.18); border: 1px solid rgba(255,255,255,.35); border-radius: 20px; padding: 5px 16px; font-size: .82em; }
+  .cover .subtitle { font-size: .95em; opacity: .75; margin-top: 18px; }
+
+  /* LAYOUT */
+  .container { max-width: 920px; margin: 0 auto; padding: 28px 20px 60px; }
+
+  /* TOC */
+  .toc { background: white; border-radius: 12px; padding: 26px 30px; margin-bottom: 32px; box-shadow: 0 2px 12px rgba(0,0,0,.08); }
+  .toc h2 { font-size: 1.3em; color: var(--primary); margin-bottom: 16px; border-bottom: 2px solid var(--accent); padding-bottom: 8px; }
+  .toc-grid { display: grid; grid-template-columns: repeat(auto-fill, minmax(220px, 1fr)); gap: 6px 20px; }
+  .toc-item { display: flex; align-items: center; gap: 8px; padding: 4px 0; }
+  .toc-num { background: var(--accent); color: white; width: 22px; height: 22px; border-radius: 50%; font-size: .75em; font-weight: 700; display: flex; align-items: center; justify-content: center; flex-shrink: 0; }
+  .toc-item a { color: var(--accent); text-decoration: none; font-size: .88em; }
+  .toc-item a:hover { text-decoration: underline; }
+
+  /* SECTION */
+  .section { background: white; border-radius: 12px; margin-bottom: 28px; box-shadow: 0 2px 10px rgba(0,0,0,.07); overflow: hidden; }
+  .section-header { background: linear-gradient(90deg, var(--primary), var(--accent)); color: white; padding: 14px 24px; display: flex; align-items: center; gap: 12px; cursor: pointer; user-select: none; }
+  .section-header .sec-num { background: rgba(255,255,255,.25); border-radius: 50%; width: 30px; height: 30px; display: flex; align-items: center; justify-content: center; font-weight: 700; font-size: .85em; flex-shrink: 0; }
+  .section-header h2 { font-size: 1.1em; font-weight: 700; }
+  .section-header .toggle { margin-left: auto; font-size: 1.1em; transition: transform .3s; }
+  .section-body { padding: 20px 24px; display: block; }
+  .section-body.collapsed { display: none; }
+
+  /* Q&A */
+  .qa { border-left: 3px solid var(--accent); padding: 10px 14px; margin-bottom: 16px; background: var(--section-bg); border-radius: 0 8px 8px 0; }
+  .qa .q { font-weight: 700; color: var(--primary); margin-bottom: 6px; font-size: .95em; }
+  .qa .q::before { content: "Q: "; color: var(--accent); }
+  .qa .a { color: var(--text); font-size: .9em; }
+  .qa .a ul { margin: 6px 0 4px 18px; }
+  .qa .a ul li { margin-bottom: 3px; }
+
+  /* CALLOUTS */
+  .tip { background: var(--tip-bg); border-left: 4px solid var(--tip); border-radius: 0 8px 8px 0; padding: 9px 14px; margin: 10px 0; font-size: .88em; color: #155724; }
+  .tip::before { content: "💡 Interview Tip: "; font-weight: 700; }
+  .trap { background: var(--trap-bg); border-left: 4px solid var(--trap); border-radius: 0 8px 8px 0; padding: 9px 14px; margin: 10px 0; font-size: .88em; color: var(--trap); }
+  .trap::before { content: "⚠️ Interview Trap: "; font-weight: 700; }
+  .example { background: var(--example-bg); border: 1px dashed var(--accent); border-radius: 8px; padding: 10px 14px; margin: 10px 0; font-size: .88em; color: #1a1a5e; }
+  .example::before { content: "📌 Example: "; font-weight: 700; color: var(--accent); }
+  .note { background: var(--warn-bg); border-left: 4px solid #ffc107; border-radius: 0 8px 8px 0; padding: 9px 14px; margin: 10px 0; font-size: .88em; color: var(--warn); }
+  .note::before { content: "📝 Note: "; font-weight: 700; }
+
+  /* TABLE */
+  table { width: 100%; border-collapse: collapse; margin: 12px 0; font-size: .86em; }
+  th { background: var(--primary); color: white; padding: 8px 10px; text-align: left; }
+  td { border: 1px solid var(--border); padding: 7px 10px; vertical-align: top; }
+  tr:nth-child(even) td { background: #f3f7fc; }
+
+  /* TAGS */
+  .tag { display: inline-block; background: var(--light); color: var(--accent); border: 1px solid var(--border); border-radius: 12px; padding: 2px 10px; font-size: .78em; margin: 2px 2px; font-weight: 600; }
+
+  /* DIVIDER */
+  .divider { border: none; border-top: 2px dashed var(--border); margin: 18px 0; }
+
+  /* PRINT */
+  @media print {
+    body { background: white; }
+    .section-body.collapsed { display: block !important; }
+    .section-header { cursor: default; }
+    .toggle { display: none; }
+  }
+
+  /* RESPONSIVE */
+  @media (max-width: 600px) {
+    .cover h1 { font-size: 1.6em; }
+    .section-body { padding: 14px 14px; }
+  }
+</style>
+</head>
+<body>
+
+<!-- COVER -->
+<div class="cover">
+  <h1>📘 Dataverse & Model-Driven Apps</h1>
+  <h2>Quick Revision Guide — Interview Ready</h2>
+  <div class="badges">
+    <span class="badge">⏱ 3–4 Hour Read</span>
+    <span class="badge">💡 Interview Tips</span>
+    <span class="badge">⚠️ Interview Traps</span>
+    <span class="badge">📌 Examples</span>
+    <span class="badge">Power Platform</span>
+  </div>
+  <p class="subtitle">Covers all major topics | Crisp answers | Exam & Interview Focused</p>
+</div>
+
+<div class="container">
+
+<!-- TOC -->
+<div class="toc">
+  <h2>📋 Table of Contents</h2>
+  <div class="toc-grid">
+    <div class="toc-item"><span class="toc-num">1</span><a href="#s1">Dataverse Fundamentals</a></div>
+    <div class="toc-item"><span class="toc-num">2</span><a href="#s2">Tables, Columns & Relationships</a></div>
+    <div class="toc-item"><span class="toc-num">3</span><a href="#s3">Data Types & Field Types</a></div>
+    <div class="toc-item"><span class="toc-num">4</span><a href="#s4">Security Model</a></div>
+    <div class="toc-item"><span class="toc-num">5</span><a href="#s5">Business Rules</a></div>
+    <div class="toc-item"><span class="toc-num">6</span><a href="#s6">Dataverse Queries & APIs</a></div>
+    <div class="toc-item"><span class="toc-num">7</span><a href="#s7">Audit, Duplicate Detection & Data Management</a></div>
+    <div class="toc-item"><span class="toc-num">8</span><a href="#s8">Environments & Solutions</a></div>
+    <div class="toc-item"><span class="toc-num">9</span><a href="#s9">Model-Driven App Fundamentals</a></div>
+    <div class="toc-item"><span class="toc-num">10</span><a href="#s10">Forms</a></div>
+    <div class="toc-item"><span class="toc-num">11</span><a href="#s11">Views</a></div>
+    <div class="toc-item"><span class="toc-num">12</span><a href="#s12">Dashboards & Charts</a></div>
+    <div class="toc-item"><span class="toc-num">13</span><a href="#s13">Ribbons & Command Bar</a></div>
+    <div class="toc-item"><span class="toc-num">14</span><a href="#s14">Sitemap & Navigation</a></div>
+    <div class="toc-item"><span class="toc-num">15</span><a href="#s15">JavaScript & Client-Side Scripting</a></div>
+    <div class="toc-item"><span class="toc-num">16</span><a href="#s16">Plugins</span></div>
+    <div class="toc-item"><span class="toc-num">17</span><a href="#s17">Power Automate Integration</a></div>
+    <div class="toc-item"><span class="toc-num">18</span><a href="#s18">PCF Controls</a></div>
+    <div class="toc-item"><span class="toc-num">19</span><a href="#s19">ALM & Deployment</a></div>
+    <div class="toc-item"><span class="toc-num">20</span><a href="#s20">Performance & Best Practices</a></div>
+  </div>
+</div>
+
+<!-- SECTION 1 -->
+<div class="section" id="s1">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">1</span>
+    <h2>Dataverse Fundamentals</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">What is Microsoft Dataverse?</div>
+      <div class="a">A cloud-based, low-code data platform built on Azure that stores and manages business data used by Power Platform and Dynamics 365. It provides built-in security, logic, and integration capabilities.</div>
+    </div>
+    <div class="tip">Dataverse was previously called Common Data Service (CDS). Mention this transition to show awareness.</div>
+    <div class="qa">
+      <div class="q">How is Dataverse different from SQL Server / SharePoint?</div>
+      <div class="a">
+        <table>
+          <tr><th>Feature</th><th>Dataverse</th><th>SQL Server</th><th>SharePoint</th></tr>
+          <tr><td>Built-in Security</td><td>✅ Row/column-level</td><td>Manual setup</td><td>Limited</td></tr>
+          <tr><td>Business Logic</td><td>Plugins, Business Rules</td><td>Stored Procs</td><td>Workflows only</td></tr>
+          <tr><td>API</td><td>OData/Web API</td><td>Custom</td><td>REST</td></tr>
+          <tr><td>Power Platform native</td><td>✅ First-class</td><td>Via connector</td><td>Via connector</td></tr>
+        </table>
       </div>
     </div>
-  );
-};
+    <div class="qa">
+      <div class="q">What are the key capabilities of Dataverse?</div>
+      <div class="a">
+        <ul>
+          <li><strong>Tables:</strong> Structured data storage (standard, custom, virtual, elastic)</li>
+          <li><strong>Relationships:</strong> 1:N, N:1, N:N</li>
+          <li><strong>Security:</strong> Role-based, row-level, column-level</li>
+          <li><strong>Logic:</strong> Business rules, calculated columns, rollup fields</li>
+          <li><strong>Integration:</strong> Web API (OData), connectors, Dataflows</li>
+          <li><strong>Auditing & Compliance:</strong> Built-in audit history</li>
+        </ul>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">What is a Dataverse Environment?</div>
+      <div class="a">An isolated container that holds data, apps, flows, and customizations. Each org gets a Default environment; additional environments (Sandbox, Production, Developer) can be created per business need.</div>
+    </div>
+    <div class="trap">Don't confuse "Environment" with "Organization" — in Dataverse context, each environment has exactly one database (org). This is a classic trap question.</div>
+    <div class="qa">
+      <div class="q">What is the Dataverse Web API?</div>
+      <div class="a">A RESTful API based on OData v4 protocol. Used to perform CRUD operations, execute functions/actions, and query data. Endpoint format: <code>https://&lt;orgurl&gt;/api/data/v9.2/</code></div>
+    </div>
+    <div class="example">GET /api/data/v9.2/accounts?$select=name,revenue&$filter=revenue gt 100000</div>
+  </div>
+</div>
 
-export default PowerPagesPDF;
+<!-- SECTION 2 -->
+<div class="section" id="s2">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">2</span>
+    <h2>Tables, Columns & Relationships</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">Types of Tables in Dataverse</div>
+      <div class="a">
+        <table>
+          <tr><th>Type</th><th>Description</th></tr>
+          <tr><td>Standard</td><td>Most tables — full CRUD, owned by users/teams</td></tr>
+          <tr><td>Activity</td><td>Time-based records (Email, Task, Phone Call). Inherit from ActivityPointer.</td></tr>
+          <tr><td>Virtual</td><td>Maps to external data source; no data stored in Dataverse</td></tr>
+          <tr><td>Elastic</td><td>Large-scale, high-throughput; uses Cosmos DB underneath</td></tr>
+          <tr><td>System</td><td>Platform tables (User, Team, Role) — limited customization</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="tip">Virtual tables are great for read-only integration scenarios — bring up CosmosDB or external REST as examples.</div>
+    <div class="qa">
+      <div class="q">What is the difference between Owner and Organization ownership?</div>
+      <div class="a">
+        <ul>
+          <li><strong>User/Team owned:</strong> Each record has an owner. Security model applies sharing/team-based access.</li>
+          <li><strong>Organization owned:</strong> All records belong to the org; any user with table access can see all records. No row-level ownership.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="example">Currency table = Organization owned (all users see all currencies). Account = User/Team owned.</div>
+    <div class="trap">You CANNOT change table ownership type after creation. This is a classic interview trap!</div>
+    <div class="qa">
+      <div class="q">Types of Relationships in Dataverse</div>
+      <div class="a">
+        <table>
+          <tr><th>Type</th><th>Description</th><th>Example</th></tr>
+          <tr><td>1:N (One-to-Many)</td><td>One parent, many children. Lookup on child.</td><td>Account → Contacts</td></tr>
+          <tr><td>N:1 (Many-to-One)</td><td>Reverse view of 1:N</td><td>Contact → Account</td></tr>
+          <tr><td>N:N (Many-to-Many)</td><td>Intersection/relationship table auto-created</td><td>Contact ↔ Marketing List</td></tr>
+          <tr><td>Self-referential</td><td>Table relates to itself</td><td>Manager → Employee (User table)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">What is a Polymorphic Lookup?</div>
+      <div class="a">A lookup column that can reference multiple table types. Called "Customer" (Account or Contact) or "Regarding" (any activity-enabled table). Internally uses the <code>activityparty</code> pattern.</div>
+    </div>
+    <div class="qa">
+      <div class="q">Relationship Behaviors (Cascading)?</div>
+      <div class="a">
+        <table>
+          <tr><th>Behavior</th><th>Assign</th><th>Delete</th><th>Share/Unshare</th></tr>
+          <tr><td>Parental</td><td>Cascade</td><td>Cascade</td><td>Cascade</td></tr>
+          <tr><td>Referential</td><td>None</td><td>Remove Link</td><td>None</td></tr>
+          <tr><td>Restrict Delete</td><td>None</td><td>Restrict</td><td>None</td></tr>
+          <tr><td>Custom</td><td>Configurable</td><td>Configurable</td><td>Configurable</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="tip">Parental behavior means child records follow parent's lifecycle. Use Restrict Delete when you must prevent orphan records from being deleted accidentally.</div>
+  </div>
+</div>
+
+<!-- SECTION 3 -->
+<div class="section" id="s3">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">3</span>
+    <h2>Data Types & Field Types</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">Key Column/Field Types in Dataverse</div>
+      <div class="a">
+        <table>
+          <tr><th>Type</th><th>Notes</th></tr>
+          <tr><td>Text (Single-line)</td><td>Max 4000 chars; subtypes: Email, URL, Phone, Ticker</td></tr>
+          <tr><td>Multi-line Text</td><td>Up to 1,048,576 chars</td></tr>
+          <tr><td>Whole Number</td><td>Integer; subtypes: None, Duration, Timezone, Language</td></tr>
+          <tr><td>Decimal / Float</td><td>Decimal = precise (10 decimal places); Float = approximation</td></tr>
+          <tr><td>Currency</td><td>Stores base + org currency values automatically</td></tr>
+          <tr><td>Date/Time</td><td>Modes: User Local, Date Only, Time Zone Independent</td></tr>
+          <tr><td>Choice (Picklist)</td><td>Global or local option set</td></tr>
+          <tr><td>Choices (Multi-select)</td><td>Multiple values from option set</td></tr>
+          <tr><td>Lookup</td><td>Reference to another table row</td></tr>
+          <tr><td>File / Image</td><td>Binary storage; Image stores thumbnail + full</td></tr>
+          <tr><td>Calculated</td><td>Derived from formula, computed server-side</td></tr>
+          <tr><td>Rollup</td><td>Aggregates child records (Sum, Count, Min, Max, Avg)</td></tr>
+          <tr><td>Auto Number</td><td>System-generated sequential/random identifier</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="trap">Calculated fields cannot be used in other calculated fields. Rollup fields have a 12-hour recalculation cycle by default — manual recalculation is possible via a button. Both are common traps.</div>
+    <div class="qa">
+      <div class="q">What is a Global Option Set vs Local Option Set?</div>
+      <div class="a">
+        <ul>
+          <li><strong>Global:</strong> Defined once, reusable across multiple tables/columns. Changes propagate everywhere.</li>
+          <li><strong>Local:</strong> Defined on a specific column, not reusable.</li>
+        </ul>
+        Use Global when the same choice list (e.g., Industry, Status) appears on multiple tables.
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">Date/Time Modes — when to use which?</div>
+      <div class="a">
+        <ul>
+          <li><strong>User Local:</strong> Converts to/from UTC based on user's timezone. Default. Good for meeting times.</li>
+          <li><strong>Date Only:</strong> No time stored; no timezone conversion. Good for birthdays, contract dates.</li>
+          <li><strong>Time Zone Independent:</strong> Stored as-is, no conversion. Good for shift schedules spanning timezones.</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip">Date/Time mode CANNOT be changed after column creation. Mention this to show depth.</div>
+  </div>
+</div>
+
+<!-- SECTION 4 -->
+<div class="section" id="s4">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">4</span>
+    <h2>Security Model</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">Layers of Dataverse Security</div>
+      <div class="a">
+        <ol style="margin-left:18px;">
+          <li><strong>Environment Security:</strong> Azure AD roles control who can access the environment</li>
+          <li><strong>Security Roles:</strong> Define table-level and field-level privileges</li>
+          <li><strong>Business Units:</strong> Hierarchical grouping of users; roles are scoped to BU</li>
+          <li><strong>Teams:</strong> Group users to share roles & records</li>
+          <li><strong>Record Sharing:</strong> Share individual records with specific users/teams</li>
+          <li><strong>Column Security Profiles:</strong> Column-level security to restrict field read/write</li>
+          <li><strong>Hierarchy Security:</strong> Manager can access reports' records</li>
+        </ol>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">Security Role Privileges — what are they?</div>
+      <div class="a">
+        Each table in a security role has: <strong>Create, Read, Write, Delete, Append, Append To, Assign, Share</strong> privileges, each scoped at: <strong>None → User → Business Unit → Parent BU → Organization</strong>.
+      </div>
+    </div>
+    <div class="example">Append vs Append To: Append = the child record can be attached to a parent. Append To = the parent allows children to be attached to it. Both must be granted for a lookup to work.</div>
+    <div class="trap">Interviewers often ask about Append vs Append To. If a user can't attach a Contact to an Account, check BOTH Append on Contact AND Append To on Account.</div>
+    <div class="qa">
+      <div class="q">What are the types of Teams in Dataverse?</div>
+      <div class="a">
+        <table>
+          <tr><th>Team Type</th><th>Description</th></tr>
+          <tr><td>Owner Team</td><td>Can own records; members inherit team's roles</td></tr>
+          <tr><td>Access Team</td><td>Auto-created per record for ad-hoc sharing; cannot own records</td></tr>
+          <tr><td>AAD Group Team</td><td>Backed by Azure AD group; auto-syncs membership</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">What is Column-Level Security (Field-Level Security)?</div>
+      <div class="a">Restricts read/write/create access at the individual column level using <strong>Column Security Profiles</strong>. Assigned to users or teams. Not all columns support this — only custom or specific system columns.</div>
+    </div>
+    <div class="qa">
+      <div class="q">How does Record Sharing work?</div>
+      <div class="a">An owner or sys admin can share a record with a specific user/team with selected privileges. Sharing is additive — you can't revoke privileges below what the security role already grants. Managed via PrincipalObjectAccess table internally.</div>
+    </div>
+    <div class="tip">Mention that sharing doesn't replace roles — it supplements them. If a role gives Read at BU level, sharing can extend to records outside BU but can't restrict the role's existing access.</div>
+  </div>
+</div>
+
+<!-- SECTION 5 -->
+<div class="section" id="s5">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">5</span>
+    <h2>Business Rules</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">What are Business Rules in Dataverse?</div>
+      <div class="a">No-code logic applied to a table form or record. Can perform: Set field value, show/hide field, set field requirement level, show error message, lock/unlock field, validate data.</div>
+    </div>
+    <div class="qa">
+      <div class="q">Business Rule Scope Options</div>
+      <div class="a">
+        <table>
+          <tr><th>Scope</th><th>Where it runs</th></tr>
+          <tr><td>Entity (Table)</td><td>Server-side — runs on ALL operations: API, import, plugins</td></tr>
+          <tr><td>All Forms</td><td>Client-side on all forms for that table</td></tr>
+          <tr><td>Specific Form</td><td>Client-side on one specific form only</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="trap">Business Rules with scope "Entity" can only SET field values and SHOW ERRORS. They CANNOT show/hide fields or change requirement level at entity scope — those are form-only actions. Classic interview trap!</div>
+    <div class="example">BR: If "Lead Source" = "Web" then set "Rating" to "Warm" — works at Entity scope. If "Hide Phone field when Type = Email" — only works at Form scope.</div>
+    <div class="qa">
+      <div class="q">Business Rules vs JavaScript — when to use which?</div>
+      <div class="a">
+        <ul>
+          <li><strong>Business Rules:</strong> Simple conditions, no-code, managed in solution, runs server-side (entity scope)</li>
+          <li><strong>JavaScript:</strong> Complex logic, dependent lookups, dynamic UI, multi-step operations</li>
+        </ul>
+        Prefer Business Rules for simple validations; use JS for complex interactions.
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 6 -->
+<div class="section" id="s6">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">6</span>
+    <h2>Dataverse Queries & APIs</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">Ways to Query Dataverse</div>
+      <div class="a">
+        <table>
+          <tr><th>Method</th><th>Use Case</th></tr>
+          <tr><td>Web API (OData)</td><td>External apps, JS, HTTP clients</td></tr>
+          <tr><td>FetchXML</td><td>Complex queries, aggregates, plugins, reports</td></tr>
+          <tr><td>LINQ (SDK)</td><td>.NET plugins/integrations using CRM SDK</td></tr>
+          <tr><td>QueryExpression</td><td>Programmatic queries in .NET SDK</td></tr>
+          <tr><td>Dataverse Search (Relevance Search)</td><td>Full-text search across multiple tables</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">What is FetchXML?</div>
+      <div class="a">An XML-based query language native to Dataverse. Supports joins, aggregates, grouping, paging. Used in Advanced Find, reports, and SDK queries.</div>
+    </div>
+    <div class="example">
+      &lt;fetch top="10"&gt;<br/>
+      &nbsp;&nbsp;&lt;entity name="account"&gt;<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;attribute name="name"/&gt;<br/>
+      &nbsp;&nbsp;&nbsp;&nbsp;&lt;filter&gt;&lt;condition attribute="statecode" operator="eq" value="0"/&gt;&lt;/filter&gt;<br/>
+      &nbsp;&nbsp;&lt;/entity&gt;<br/>
+      &lt;/fetch&gt;
+    </div>
+    <div class="qa">
+      <div class="q">Key OData Query Options</div>
+      <div class="a">
+        <ul>
+          <li><strong>$select</strong> — limit columns returned</li>
+          <li><strong>$filter</strong> — filter records</li>
+          <li><strong>$orderby</strong> — sort results</li>
+          <li><strong>$top</strong> — limit rows (max 5000 without paging)</li>
+          <li><strong>$expand</strong> — include related table data</li>
+          <li><strong>$count</strong> — return record count</li>
+        </ul>
+      </div>
+    </div>
+    <div class="tip">Dataverse Web API has a 5000-record page limit. For large datasets use <code>@odata.nextLink</code> for pagination or FetchXML with paging cookie.</div>
+    <div class="qa">
+      <div class="q">What is Dataverse Search (Relevance Search)?</div>
+      <div class="a">Azure Cognitive Search-powered full-text search. Searches across multiple tables simultaneously, supports fuzzy matching, relevance ranking, and faceted filters. Must be enabled per environment and tables opted in.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 7 -->
+<div class="section" id="s7">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">7</span>
+    <h2>Audit, Duplicate Detection & Data Management</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">How does Auditing work in Dataverse?</div>
+      <div class="a">
+        <ul>
+          <li>Tracks Create, Update, Delete, and read access on records</li>
+          <li>Must be enabled at: 1) Environment level, 2) Table level, 3) Column level</li>
+          <li>Audit logs stored in the <strong>Audit</strong> table</li>
+          <li>Can be viewed in the Audit History subgrid on records or Audit Summary view</li>
+        </ul>
+      </div>
+    </div>
+    <div class="trap">Auditing has a 3-level hierarchy — if you enable it at environment level only but not table level, no data is captured. All three levels must be on!</div>
+    <div class="qa">
+      <div class="q">Duplicate Detection in Dataverse</div>
+      <div class="a">
+        <ul>
+          <li>Configure <strong>Duplicate Detection Rules</strong> per table with match conditions</li>
+          <li>Runs on Create/Update or via on-demand Duplicate Detection Jobs</li>
+          <li>Duplicate records show a warning but <em>don't block save</em> by default for users with override privilege</li>
+          <li>Results stored in <strong>Duplicate Record</strong> table</li>
+        </ul>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">Data Import & Export Options</div>
+      <div class="a">
+        <table>
+          <tr><th>Tool</th><th>Use Case</th></tr>
+          <tr><td>Import from Excel/CSV</td><td>UI-based bulk import via wizard</td></tr>
+          <tr><td>Dataflows</td><td>ETL from external sources; Power Query based</td></tr>
+          <tr><td>Data Export Service</td><td>Replicate Dataverse to Azure SQL (deprecated — use Synapse Link)</td></tr>
+          <tr><td>Azure Synapse Link</td><td>Continuous export to Azure Data Lake/Synapse for analytics</td></tr>
+          <tr><td>Configuration Migration Tool</td><td>Move configuration/reference data between environments</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">What is the Recycle Bin in Dataverse?</div>
+      <div class="a">Soft-delete feature (if enabled) that retains deleted records for 30 days. Records can be restored. Admins can configure retention period. Not enabled by default on all environments.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 8 -->
+<div class="section" id="s8">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">8</span>
+    <h2>Environments & Solutions</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">Types of Environments</div>
+      <div class="a">
+        <table>
+          <tr><th>Type</th><th>Purpose</th></tr>
+          <tr><td>Default</td><td>Auto-created per tenant; everyone gets access</td></tr>
+          <tr><td>Production</td><td>Live business data; backup/restore available</td></tr>
+          <tr><td>Sandbox</td><td>Dev/Test; can be reset; copy from production</td></tr>
+          <tr><td>Developer</td><td>Free, single-user; for personal dev/testing</td></tr>
+          <tr><td>Trial</td><td>30-day; auto-deleted</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">What is a Solution?</div>
+      <div class="a">A container for customizations and extensions (tables, forms, flows, apps, plugins, etc.) used for ALM. Two types:
+        <ul>
+          <li><strong>Unmanaged:</strong> Used in development; fully editable; exports as source</li>
+          <li><strong>Managed:</strong> Used in test/production; locked; controlled upgrade path</li>
+        </ul>
+      </div>
+    </div>
+    <div class="trap">Unmanaged solution components ARE part of the "Default Solution" — they live in the org. Managed solutions layer on top. If you delete a managed solution, its components are removed. If unmanaged customizations override a managed layer, unmanaged takes precedence — this is "solution layering."</div>
+    <div class="qa">
+      <div class="q">What are Solution Layers and how do they work?</div>
+      <div class="a">When multiple solutions modify the same component, they stack in layers. The <strong>topmost (active) layer</strong> wins. You can view layers in the "See solution layers" option. Unmanaged customizations always sit above managed layers.</div>
+    </div>
+    <div class="qa">
+      <div class="q">Managed vs Unmanaged Properties</div>
+      <div class="a">
+        <table>
+          <tr><th></th><th>Unmanaged</th><th>Managed</th></tr>
+          <tr><td>Editable in target</td><td>✅ Yes</td><td>❌ Depends on managed properties</td></tr>
+          <tr><td>Delete removes components</td><td>❌ No</td><td>✅ Yes</td></tr>
+          <tr><td>Used in</td><td>Dev env</td><td>Test/Prod</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">What is a Publisher?</div>
+      <div class="a">Defines the customization prefix (e.g., <code>cr123_</code>) used for all custom components in a solution. Best practice: create a custom publisher instead of using the default "customizations" publisher with prefix <code>new_</code>.</div>
+    </div>
+    <div class="tip">Always use a custom publisher with a meaningful prefix in enterprise projects. Mixing prefixes across teams creates messy ALM.</div>
+  </div>
+</div>
+
+<!-- SECTION 9 -->
+<div class="section" id="s9">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">9</span>
+    <h2>Model-Driven App Fundamentals</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">What is a Model-Driven App?</div>
+      <div class="a">A Power Platform app type where the UI is derived from the data model (Dataverse tables). The app is built around forms, views, dashboards, and business processes. Contrast with Canvas Apps which are pixel-perfect and data-source agnostic.</div>
+    </div>
+    <div class="qa">
+      <div class="q">Model-Driven vs Canvas App</div>
+      <div class="a">
+        <table>
+          <tr><th>Feature</th><th>Model-Driven</th><th>Canvas</th></tr>
+          <tr><td>Data Source</td><td>Dataverse only</td><td>300+ connectors</td></tr>
+          <tr><td>UI Design</td><td>Auto-generated from data model</td><td>Pixel-perfect, drag & drop</td></tr>
+          <tr><td>Business Logic</td><td>Plugins, BRs, Flows</td><td>Power Fx formulas</td></tr>
+          <tr><td>Navigation</td><td>Sitemap-driven</td><td>Screens-based</td></tr>
+          <tr><td>Best For</td><td>Complex data mgmt, CRM/ERP style</td><td>Task-specific, mobile-first</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">Components of a Model-Driven App</div>
+      <div class="a">
+        <ul>
+          <li><strong>Sitemap:</strong> Navigation structure (areas → groups → subareas)</li>
+          <li><strong>Tables:</strong> Which tables are included</li>
+          <li><strong>Forms:</strong> Data entry UI</li>
+          <li><strong>Views:</strong> List/grid of records</li>
+          <li><strong>Dashboards:</strong> Charts, lists, iframes</li>
+          <li><strong>Business Process Flows:</strong> Guided stage-based processes</li>
+          <li><strong>Charts:</strong> Visualizations on views</li>
+          <li><strong>Command Bar:</strong> Action buttons</li>
+        </ul>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">What is a Business Process Flow (BPF)?</div>
+      <div class="a">A guided stage-based process displayed at the top of a form. Helps users through a multi-step process. Each stage has steps (fields to fill). Can span multiple tables. Stored as a table internally (<code>processstage</code>). Max 5 tables per BPF, max 30 stages.</div>
+    </div>
+    <div class="example">Opportunity BPF: Qualify → Develop → Propose → Close. Each stage requires specific fields before moving forward.</div>
+    <div class="tip">BPFs can branch (conditional branching) allowing different paths based on data. This is an advanced feature worth mentioning.</div>
+  </div>
+</div>
+
+<!-- SECTION 10 -->
+<div class="section" id="s10">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">10</span>
+    <h2>Forms</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">Types of Forms in Model-Driven Apps</div>
+      <div class="a">
+        <table>
+          <tr><th>Form Type</th><th>Purpose</th></tr>
+          <tr><td>Main</td><td>Primary data entry/edit form; full feature support</td></tr>
+          <tr><td>Quick Create</td><td>Lightweight form for fast record creation (enabled per table)</td></tr>
+          <tr><td>Quick View</td><td>Read-only form embedded in another form to show related record data</td></tr>
+          <tr><td>Card</td><td>Compact view for interactive dashboards (stream tiles)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">Form Structure</div>
+      <div class="a">
+        <strong>Form → Tabs → Sections → Fields/Controls</strong><br/>
+        Each tab can have multiple sections. Sections organize fields in 1–4 column layouts.
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">Form Order & Security Roles</div>
+      <div class="a">Multiple forms can exist per table. Users see the highest-ranked form they have access to. Forms can be assigned to specific security roles to show the right form per user type.</div>
+    </div>
+    <div class="trap">If a user isn't seeing the expected form, check: 1) Form order, 2) Security role assignment on the form. This is a common support scenario.</div>
+    <div class="qa">
+      <div class="q">What are Subgrids on Forms?</div>
+      <div class="a">Embedded list controls on a form showing related records. Uses a View from the related table. Can be configured for display only or allow inline create/edit.</div>
+    </div>
+    <div class="qa">
+      <div class="q">What is a Quick View Form?</div>
+      <div class="a">A read-only form embedded within a Main form to display fields from a related (lookup) record without navigating away. Configure it via "Quick View Control" in the form editor.</div>
+    </div>
+    <div class="example">On a Contact form, embed an Account Quick View Form to show the parent account's address and phone directly.</div>
+    <div class="qa">
+      <div class="q">Header, Footer, and Body in Forms</div>
+      <div class="a">
+        <ul>
+          <li><strong>Header:</strong> Shows key fields at the top (up to 4 fields). Always visible.</li>
+          <li><strong>Body:</strong> Main content area with tabs and sections</li>
+          <li><strong>Footer:</strong> Legacy area; largely deprecated in modern forms</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 11 -->
+<div class="section" id="s11">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">11</span>
+    <h2>Views</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">Types of Views in Model-Driven Apps</div>
+      <div class="a">
+        <table>
+          <tr><th>View Type</th><th>Description</th></tr>
+          <tr><td>Public</td><td>Available to all users; created by customizers</td></tr>
+          <tr><td>System</td><td>Default views (Active, Inactive, All Records); protected</td></tr>
+          <tr><td>Personal</td><td>Created by individual users; visible only to them (or shared)</td></tr>
+          <tr><td>Associated</td><td>Used in subgrids to show related records</td></tr>
+          <tr><td>Quick Find</td><td>Defines columns searched in the search bar</td></tr>
+          <tr><td>Advanced Find</td><td>User-built ad-hoc queries</td></tr>
+          <tr><td>Lookup</td><td>Shown in lookup dialogs</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">What is the Quick Find View?</div>
+      <div class="a">Defines which columns are searched when a user types in the search box on a view. Add columns to "Find Columns" to make them searchable. The columns displayed in results are the "View Columns."</div>
+    </div>
+    <div class="trap">Just adding a column to the Quick Find view's visible columns doesn't make it searchable — you must add it to "Find Columns" separately. Very common interview and real-world trap!</div>
+    <div class="qa">
+      <div class="q">How to set a Default View?</div>
+      <div class="a">In the View editor, right-click a public view and select "Set as Default View." The default view is what users see when they first navigate to a table's list.</div>
+    </div>
+    <div class="tip">Views can be used in: List pages, Subgrids, Lookups, Dashboards. Show depth by mentioning all use cases.</div>
+  </div>
+</div>
+
+<!-- SECTION 12 -->
+<div class="section" id="s12">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">12</span>
+    <h2>Dashboards & Charts</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">Types of Dashboards</div>
+      <div class="a">
+        <table>
+          <tr><th>Type</th><th>Description</th></tr>
+          <tr><td>System Dashboard</td><td>Created by admins/customizers; visible to everyone</td></tr>
+          <tr><td>Personal Dashboard</td><td>Created by users for themselves</td></tr>
+          <tr><td>Interactive Experience Dashboard</td><td>Stream-based, filter-driven; great for service scenarios (Case management)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">Dashboard Components</div>
+      <div class="a">Charts, Lists (views), iFrames, Web Resources, Power BI tiles. Max 6 components in a standard dashboard.</div>
+    </div>
+    <div class="qa">
+      <div class="q">Chart Types Available</div>
+      <div class="a">Bar, Column, Line, Pie, Funnel, Area, Donut, Tag (word cloud). Charts are defined at the table level and can be reused across views and dashboards.</div>
+    </div>
+    <div class="tip">Interactive Experience Dashboards support global filters (like "My Cases" vs "All Cases") and multi-stream views — ideal for call center agents. Mention this for Dynamics 365 CS roles.</div>
+    <div class="qa">
+      <div class="q">Power BI Integration in Dashboards</div>
+      <div class="a">Embed Power BI tiles/reports in dashboards via the Power BI tile component or as an iFrame. Requires Power BI license and the Power BI integration to be enabled in the environment settings.</div>
+    </div>
+  </div>
+</div>
+
+<!-- SECTION 13 -->
+<div class="section" id="s13">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">13</span>
+    <h2>Ribbons & Command Bar</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">What is the Command Bar?</div>
+      <div class="a">The action buttons at the top of forms and views (formerly called "Ribbon"). In modern MDA, this is the <strong>Command Bar</strong>. Contains system commands (Save, New, Delete) and custom commands.</div>
+    </div>
+    <div class="qa">
+      <div class="q">How to customize the Command Bar?</div>
+      <div class="a">
+        <ul>
+          <li><strong>Modern way:</strong> Power Apps Command Designer (no-code, in-solution)</li>
+          <li><strong>Legacy way:</strong> Ribbon Workbench (XrmToolBox) for complex scenarios</li>
+        </ul>
+        Can add buttons with: JavaScript actions, Power Automate flow triggers, or URL navigation.
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">What are Display/Enable Rules?</div>
+      <div class="a">
+        <ul>
+          <li><strong>Display Rule:</strong> Controls visibility of a command button</li>
+          <li><strong>Enable Rule:</strong> Controls if a button is clickable (greyed out vs visible)</li>
+        </ul>
+        Can use JavaScript functions, entity privilege checks, form state, or selection count as conditions.
+      </div>
+    </div>
+    <div class="tip">Command Bar customizations in Power Apps Command Designer are managed in solutions as <code>appaction</code> components — much cleaner than old RibbonDiff XML.</div>
+  </div>
+</div>
+
+<!-- SECTION 14 -->
+<div class="section" id="s14">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">14</span>
+    <h2>Sitemap & Navigation</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">Sitemap Structure</div>
+      <div class="a"><strong>App → Area → Group → Subarea</strong><br/>
+        Areas = top-level navigation (left rail in unified interface). Groups organize subareas. Subareas point to entities, dashboards, web resources, or URLs.</div>
+    </div>
+    <div class="qa">
+      <div class="q">Sitemap Editor</div>
+      <div class="a">Built into Power Apps maker portal (make.powerapps.com). Drag-and-drop interface. Subareas can be: Entity (table), Dashboard, Web Resource, URL.</div>
+    </div>
+    <div class="qa">
+      <div class="q">App Modules — what are they?</div>
+      <div class="a">Each Model-Driven App is an "App Module." App Modules define: which entities are included, sitemap, dashboards, forms, views, and BPFs surfaced. Multiple app modules can share the same data model but show different subsets.</div>
+    </div>
+    <div class="example">A "Sales App" module shows Accounts, Opportunities, Leads. A "Customer Service App" module shows Cases, Contacts, Knowledge Articles — same Dataverse, different UX.</div>
+    <div class="tip">App Modules support security roles — only users with the right role see the app in their app list. This is a clean way to control access.</div>
+  </div>
+</div>
+
+<!-- SECTION 15 -->
+<div class="section" id="s15">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">15</span>
+    <h2>JavaScript & Client-Side Scripting</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">Where is JS used in Model-Driven Apps?</div>
+      <div class="a">
+        <ul>
+          <li><strong>Form Events:</strong> OnLoad, OnSave, OnChange (field-level)</li>
+          <li><strong>Command Bar:</strong> Button click actions</li>
+          <li><strong>Subgrid Events:</strong> OnLoad, OnRecordSelect</li>
+          <li><strong>Business Process Flow:</strong> Stage events</li>
+        </ul>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">Key Xrm.Page / formContext APIs</div>
+      <div class="a">
+        <table>
+          <tr><th>API</th><th>Purpose</th></tr>
+          <tr><td>formContext.data.entity.getId()</td><td>Get current record GUID</td></tr>
+          <tr><td>formContext.getAttribute("name").getValue()</td><td>Get field value</td></tr>
+          <tr><td>formContext.getAttribute("name").setValue(val)</td><td>Set field value</td></tr>
+          <tr><td>formContext.getControl("name").setVisible(bool)</td><td>Show/hide field</td></tr>
+          <tr><td>formContext.getControl("name").setDisabled(bool)</td><td>Lock/unlock field</td></tr>
+          <tr><td>formContext.getAttribute("name").setRequiredLevel("required")</td><td>Make required</td></tr>
+          <tr><td>Xrm.Navigation.openForm()</td><td>Navigate to record</td></tr>
+          <tr><td>Xrm.WebApi.retrieveMultipleRecords()</td><td>Query Dataverse from JS</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="trap">Xrm.Page is deprecated — always use <code>executionContext.getFormContext()</code> passed as a parameter. Interviewers check if you know this distinction!</div>
+    <div class="qa">
+      <div class="q">How do you register a JS event handler?</div>
+      <div class="a">
+        <ol style="margin-left:16px;">
+          <li>Create a JS Web Resource</li>
+          <li>Add it to the form via Form Properties → Events</li>
+          <li>Register function on the desired event (OnLoad, OnSave, OnChange)</li>
+          <li>Pass execution context as first parameter (check "Pass execution context as first parameter")</li>
+        </ol>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">Async JS on OnSave — how to prevent premature save?</div>
+      <div class="a">Use <code>saveContext.getEventArgs().preventDefaultOnError()</code> or return a Promise from OnSave handler. Modern approach: async OnSave handlers are supported — return a Promise and Dataverse awaits resolution before saving.</div>
+    </div>
+    <div class="tip">Always use <code>preventDefault()</code> in OnSave if you need to cancel save after validation. Use async/await pattern with Xrm.WebApi for cleaner code.</div>
+  </div>
+</div>
+
+<!-- SECTION 16 -->
+<div class="section" id="s16">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">16</span>
+    <h2>Plugins</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">What is a Plugin?</div>
+      <div class="a">A .NET class library registered to execute on Dataverse platform events (CRUD, Associate, etc.). Runs synchronously in the platform pipeline. Used for complex server-side business logic.</div>
+    </div>
+    <div class="qa">
+      <div class="q">Plugin Pipeline Stages</div>
+      <div class="a">
+        <table>
+          <tr><th>Stage</th><th>Number</th><th>Description</th></tr>
+          <tr><td>Pre-Validation</td><td>10</td><td>Before security checks; outside transaction; DB reads OK, no rollback</td></tr>
+          <tr><td>Pre-Operation</td><td>20</td><td>After security checks; inside transaction; can modify InputParameters</td></tr>
+          <tr><td>Main Operation</td><td>30</td><td>Core platform op (not available for custom plugins)</td></tr>
+          <tr><td>Post-Operation</td><td>40</td><td>After op completes; inside transaction; can modify OutputParameters</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="trap">Pre-Validation runs OUTSIDE the database transaction. If you do DB writes there and an error occurs in Pre-Operation, those writes won't roll back! Use Pre-Operation for anything that must be atomic.</div>
+    <div class="qa">
+      <div class="q">Synchronous vs Asynchronous Plugins</div>
+      <div class="a">
+        <ul>
+          <li><strong>Sync:</strong> Blocks the operation; runs in-transaction; immediate; 2-minute timeout</li>
+          <li><strong>Async:</strong> Queued; runs in background via Async Service; no timeout concern; can't modify operation</li>
+        </ul>
+        Use Async for time-consuming operations (email sends, external API calls).
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">Key Plugin Context Members</div>
+      <div class="a">
+        <table>
+          <tr><th>Member</th><th>Purpose</th></tr>
+          <tr><td>InputParameters["Target"]</td><td>The record being operated on (Entity type)</td></tr>
+          <tr><td>OutputParameters["BusinessEntityCollection"]</td><td>Query results</td></tr>
+          <tr><td>PreEntityImages</td><td>Record state BEFORE the operation</td></tr>
+          <tr><td>PostEntityImages</td><td>Record state AFTER the operation</td></tr>
+          <tr><td>InitiatingUserId</td><td>User who triggered the action</td></tr>
+          <tr><td>Depth</td><td>Plugin call depth (avoid infinite loops)</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="tip">Always check <code>context.Depth</code> in plugins to prevent infinite loops when a plugin triggers the same message recursively.</div>
+    <div class="qa">
+      <div class="q">What are Entity Images in Plugins?</div>
+      <div class="a">Snapshots of the record. <strong>Pre-Image</strong> = state before operation (must be registered). <strong>Post-Image</strong> = state after operation. Pre-Image not available in Pre-Validation. Post-Image not available in Pre-Operation.</div>
+    </div>
+    <div class="qa">
+      <div class="q">Plugin Registration</div>
+      <div class="a">Done via <strong>Plugin Registration Tool</strong> (from PAC CLI or XrmToolBox). Register: Assembly → Plugin Type → Step (message, stage, mode, filtering attributes) → Images.</div>
+    </div>
+    <div class="trap">If you don't specify Filtering Attributes on a plugin step, the plugin fires on EVERY update regardless of which field changed. Always filter to relevant attributes to avoid unnecessary execution!</div>
+  </div>
+</div>
+
+<!-- SECTION 17 -->
+<div class="section" id="s17">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">17</span>
+    <h2>Power Automate Integration</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">Dataverse triggers in Power Automate</div>
+      <div class="a">
+        <table>
+          <tr><th>Trigger</th><th>Notes</th></tr>
+          <tr><td>When a row is added, modified or deleted</td><td>Standard CRUD trigger</td></tr>
+          <tr><td>When a row is selected (V2)</td><td>Triggered from command bar button in MDA</td></tr>
+          <tr><td>When an action is performed</td><td>Custom API / Action trigger</td></tr>
+          <tr><td>Recurrence</td><td>Scheduled flows</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">Classic Workflow vs Power Automate (Cloud Flow)</div>
+      <div class="a">Classic Workflows are deprecated but still functional. Power Automate Cloud Flows are the recommended replacement. Cloud Flows are more powerful, support parallel branches, HTTP calls, and 400+ connectors.</div>
+    </div>
+    <div class="qa">
+      <div class="q">What is a Custom API (Custom Action)?</div>
+      <div class="a">A reusable, callable operation defined in Dataverse. Can be triggered from: plugins, Power Automate, JavaScript (Xrm.WebApi), or external HTTP. Supports input/output parameters. Replaces old "Custom Workflow Activities" for complex reusable logic.</div>
+    </div>
+    <div class="tip">Custom APIs are the modern replacement for Custom Actions defined in the legacy process designer. They're solution-aware and support bound/unbound patterns just like standard Web API functions.</div>
+  </div>
+</div>
+
+<!-- SECTION 18 -->
+<div class="section" id="s18">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">18</span>
+    <h2>Power Apps Component Framework (PCF)</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">What is PCF?</div>
+      <div class="a">Power Apps Component Framework lets developers build custom UI controls using TypeScript/React. PCF controls replace default field controls or dataset views with rich, interactive custom UIs.</div>
+    </div>
+    <div class="qa">
+      <div class="q">PCF Control Types</div>
+      <div class="a">
+        <ul>
+          <li><strong>Field Control:</strong> Replaces a single field's UI (e.g., a star rating input instead of a number)</li>
+          <li><strong>Dataset Control:</strong> Replaces a view/subgrid with custom visualization (e.g., Kanban board, calendar)</li>
+        </ul>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">PCF Lifecycle Methods</div>
+      <div class="a">
+        <ul>
+          <li><strong>init():</strong> Initialize component, subscribe to events</li>
+          <li><strong>updateView():</strong> Called when data changes; refresh UI</li>
+          <li><strong>getOutputs():</strong> Return current output values</li>
+          <li><strong>destroy():</strong> Cleanup on removal</li>
+        </ul>
+      </div>
+    </div>
+    <div class="example">Build a PCF "Color Picker" control for a text field that stores hex color codes — shows a color wheel instead of a text box.</div>
+    <div class="tip">PCF controls are packaged as solutions. Virtual controls (no manifest input output) are the modern approach. React Virtual controls give full React rendering without iframe overhead.</div>
+  </div>
+</div>
+
+<!-- SECTION 19 -->
+<div class="section" id="s19">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">19</span>
+    <h2>ALM & Deployment</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">ALM Best Practices in Power Platform</div>
+      <div class="a">
+        <ol style="margin-left:16px;">
+          <li>Develop in a <strong>Developer/Sandbox</strong> environment</li>
+          <li>Use <strong>source control</strong> (Git) with PAC CLI to extract solution files</li>
+          <li>Export as <strong>Unmanaged</strong> from Dev; build <strong>Managed</strong> for deployment</li>
+          <li>Deploy Managed to Test → Production</li>
+          <li>Use <strong>Pipelines</strong> (Power Platform Pipelines) or Azure DevOps for CI/CD</li>
+        </ol>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">PAC CLI — key commands</div>
+      <div class="a">
+        <table>
+          <tr><th>Command</th><th>Purpose</th></tr>
+          <tr><td>pac auth create</td><td>Connect to environment</td></tr>
+          <tr><td>pac solution export</td><td>Export solution</td></tr>
+          <tr><td>pac solution import</td><td>Import solution</td></tr>
+          <tr><td>pac solution unpack</td><td>Unpack .zip to source files</td></tr>
+          <tr><td>pac solution pack</td><td>Pack source files to .zip</td></tr>
+          <tr><td>pac pcf init/push</td><td>PCF development</td></tr>
+        </table>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">What are Managed Properties?</div>
+      <div class="a">Settings on solution components that control what customers/partners can customize in managed solutions. E.g., "Can be customized" = false means a field cannot be modified when installed as managed.</div>
+    </div>
+    <div class="qa">
+      <div class="q">Solution Dependencies</div>
+      <div class="a">Solutions track dependencies between components. You can't delete a component if another component depends on it. Use "Show Dependencies" to troubleshoot. Missing dependencies cause import failures in target environments.</div>
+    </div>
+    <div class="trap">Importing a managed solution that has a missing dependency (e.g., references a table from another solution not installed) will FAIL with a dependency error. Always deploy base solutions first!</div>
+  </div>
+</div>
+
+<!-- SECTION 20 -->
+<div class="section" id="s20">
+  <div class="section-header" onclick="toggle(this)">
+    <span class="sec-num">20</span>
+    <h2>Performance & Best Practices</h2>
+    <span class="toggle">▼</span>
+  </div>
+  <div class="section-body">
+    <div class="qa">
+      <div class="q">Top Performance Best Practices for Dataverse</div>
+      <div class="a">
+        <ul>
+          <li>Use <strong>$select</strong> to return only needed columns (avoid over-fetching)</li>
+          <li>Add <strong>alternate keys</strong> or <strong>indexes</strong> on frequently queried fields</li>
+          <li>Avoid retrieving more than 5000 records at once — use pagination</li>
+          <li>Use <strong>ExecuteMultiple</strong> for bulk operations (reduces API round trips)</li>
+          <li>Avoid deep plugin chains and long synchronous plugin execution</li>
+          <li>Use <strong>RetrieveMultiple</strong> with column sets instead of full entity</li>
+          <li>Cache reference data in plugins using static/lazy-loaded patterns</li>
+        </ul>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">Top Best Practices for Model-Driven Apps</div>
+      <div class="a">
+        <ul>
+          <li>Keep OnLoad JS lightweight — defer heavy logic or use async</li>
+          <li>Minimize Web API calls in JS — batch where possible</li>
+          <li>Use Business Rules over JS for simple logic (less maintenance)</li>
+          <li>Configure form-level filtering attributes to prevent unnecessary plugin triggers</li>
+          <li>Use Quick Find view with appropriate find columns (not every column)</li>
+          <li>Use App Modules to show only relevant tables per user role</li>
+          <li>Avoid too many subgrids on one form — impacts load time</li>
+        </ul>
+      </div>
+    </div>
+    <div class="qa">
+      <div class="q">API Rate Limits & Throttling</div>
+      <div class="a">Dataverse enforces service protection limits: <strong>1000 requests per 5 minutes per user</strong>. Responses include <code>Retry-After</code> header when throttled. Use batching (OData $batch or ExecuteMultiple) to stay within limits.</div>
+    </div>
+    <div class="qa">
+      <div class="q">What is the 2-minute plugin timeout?</div>
+      <div class="a">Synchronous plugins must complete within 2 minutes. If exceeded, the platform terminates the plugin and rolls back the transaction. Move long-running logic to Async plugins or Power Automate.</div>
+    </div>
+    <div class="tip">For high-volume scenarios, consider Elastic Tables (Cosmos DB backed) for write-heavy telemetry/audit data — they offer horizontal scaling beyond what standard Dataverse tables provide.</div>
+    <div class="qa">
+      <div class="q">Common Solution / ALM Mistakes to Avoid</div>
+      <div class="a">
+        <ul>
+          <li>Making changes directly in Production (never do this)</li>
+          <li>Using "Default Solution" as your working solution — always use a custom publisher</li>
+          <li>Not specifying filtering attributes on plugins</li>
+          <li>Exporting managed solutions from Dev (should be unmanaged from Dev)</li>
+          <li>Not handling solution dependency order in deployments</li>
+        </ul>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- Footer -->
+<div style="text-align:center; color:#888; font-size:.8em; margin-top: 40px; padding: 20px; background: white; border-radius: 12px;">
+  <strong>Dataverse & Model-Driven Apps Quick Revision Guide</strong><br/>
+  Covers: Dataverse Core · Security · Forms · Views · Plugins · JS · PCF · ALM<br/>
+  <span style="color: var(--accent);">Good luck with your interview! 🚀</span>
+</div>
+
+</div>
+
+<script>
+function toggle(header) {
+  const body = header.nextElementSibling;
+  const icon = header.querySelector('.toggle');
+  body.classList.toggle('collapsed');
+  icon.textContent = body.classList.contains('collapsed') ? '▶' : '▼';
+}
+// All sections open by default
+</script>
+</body>
+</html>
